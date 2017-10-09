@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>#{$title.application}</title>
+</head>
+<body>
+<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+<h1>#{greeting}</h1>
+<h1>
+   #{Messages['title.application']}
+</h1>
+HelloWorldPage
+
+<p>Get your home <a href="/home">home</a></p>
+
+<span th:text="#{ lang.change}"></span>:
+<select id="locales">
+    <option value=""></option>
+    <option value="tr" th:text="#{lang.tr}"></option>
+    <option value="en" th:text="#{lang.eng}"></option>
+    <option value="es" th:text="#{lang.es}"></option>
+</select>
+
+
+<p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+<p>Get your greeting <a href="/greeting">greeting</a></p>
+<p>Get your welcome <a href="/welcome">welcome</a></p>
+<p>Get your registration <a href="/registration">registration</a></p>
+<p>Get your home <a href="/home">home</a></p>
+<p>Get your login <a href="/login">login</a></p>
+<p>Get your logout <a href="/logout">logout</a></p>
+
+<p>Get your logout <a href="/HelloWorldPage">HelloWorldPage</a></p>
+<p>Get your logout <a href="/HelloWorldPage?lang=tr">HelloWorldPage TR</a></p>
+<p>Get your logout <a href="/HelloWorldPage?lang=en">HelloWorldPage EN</a></p>
+<p>Get your logout <a href="/HelloWorldPage?lang=es">HelloWorldPage ES</a></p>
+
+
+</body>
+</html>
+
+

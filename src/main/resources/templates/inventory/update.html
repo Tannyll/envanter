@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{app.name}"></title>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<!--
+https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
+-->
+
+<div class="container">
+
+
+    <form autocomplete="off" action="#" th:action="@{/inventory/update}" th:object="${formBean}" method="post"
+          th:class="form-group" role="form">
+
+        <div th:class="row">
+            <div class="form-group col-md-4">
+                <h2><span th:text="*{inventoryId}"/> Numaralı Envanter</h2>
+            </div>
+        </div>
+
+        <div th:class="row">
+            <div class="form-group col-md-4">
+
+
+                <select th:field="*{inventoryTypes}" class="form-control" th:id="inventoryTypeId">
+
+                    <option
+                            th:each="type : ${formBeanInventoryType}"
+                            th:value="${type.inventoryTypeId}"
+                            th:text="${type.inventoryType}"
+                            th:readonly="(${type.inventoryTypeId} == *{inventoryTypes.inventoryTypeId})"
+                    >
+                    </option>
+                </select>
+
+                <label th:if="${#fields.hasErrors('inventoryTypes.inventoryTypeId')}" th:errors="*{inventoryTypes}"
+                       class="validation-message"></label>
+            </div>
+
+            <div class="form-group col-md-4">
+
+
+                <select th:field="*{trademarks}" class="form-control" th:id="trademarkId">
+                    <option
+                            th:each="type : ${formBeanTrademark}"
+                            th:value="${type.trademarkId}"
+                            th:text="${type.trademark}"
+                            th:selected="(${type.trademarkId} == *{trademarks.trademarkId})">
+                    </option>
+                </select>
+
+                <label th:if="${#fields.hasErrors('trademarks.trademarkId')}" th:errors="*{trademarks}"
+                       class="validation-message"></label>
+
+            </div>
+            <div class="form-group col-md-4">
+
+                <select th:field="*{departments}" class="form-control" th:id="departmentId">
+                    <option
+                            th:each="type : ${formBeanDepartment}"
+                            th:value="${type.departmentId}"
+                            th:text="${type.departmentName}"
+                            th:selected="(${type.departmentId} == *{departments.departmentId})">
+                    </option>
+                </select>
+
+                <label th:if="${#fields.hasErrors('departments.departmentId')}" th:errors="*{departments.departmentId}"
+                       class="validation-message"></label>
+            </div>
+        </div>
+
+
+        <div th:class="row">
+            <div class="form-group col-md-4">
+
+
+                <input type="text" th:field="*{usesUser}" th:placeholder="#{inventory.field.usesUser}"
+                       class="form-control"/>
+                <label th:if="${#fields.hasErrors('usesUser')}" th:errors="*{usesUser}"
+                       class="validation-message"></label>
+
+            </div>
+            <div class="form-group col-md-4">
+
+
+                <input type="text" th:field="*{model}" th:placeholder="#{inventory.field.model}"
+                       class="form-control"/>
+                <label th:if="${#fields.hasErrors('model')}" th:errors="*{model}"
+                       class="validation-message"></label>
+
+            </div>
+            <div class="form-group col-md-4">
+
+
+                <input type="text" th:field="*{barcode}" th:placeholder="#{inventory.field.barcode}"
+                       class="form-control"/>
+                <label th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"
+                       class="validation-message"></label>
+            </div>
+
+
+        </div>
+
+        <div th:class="row">
+            <div class="form-group col-md-12">
+
+                <textarea th:rows="5" th:field="*{feature}" th:placeholder="#{inventory.field.feature}"
+                          class="form-control"/>
+
+                <label th:if="${#fields.hasErrors('feature')}" th:errors="*{feature}"
+                       class="validation-message"></label>
+
+            </div>
+        </div>
+
+        <div th:class="row">
+            <div class="form-group col-md-4">
+
+
+                <input type="text" th:field="*{invoiceNumber}" th:placeholder="#{inventory.field.invoiceNumber}"
+                       class="form-control"/>
+                <label th:if="${#fields.hasErrors('invoiceNumber')}" th:errors="*{invoiceNumber}"
+                       class="validation-message"></label>
+
+            </div>
+
+            <div class="form-group col-md-4">
+
+
+                <input type="text" th:field="*{invoiceDate}" th:placeholder="#{inventory.field.invoiceDate}"
+                       class="form-control"/>
+                <label th:if="${#fields.hasErrors('model')}" th:errors="*{invoiceDate}"
+                       class="validation-message"></label>
+
+            </div>
+            <div class="form-group col-md-4">
+
+                <input type="text" th:field="*{price}" th:placeholder="#{inventory.field.price}"
+                       class="form-control"/>
+                <label th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+                       class="validation-message"></label>
+
+            </div>
+        </div>
+
+        <div th:class="row">
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-primary btn-block"
+                        th:text="#{form.button.save}"></button>
+            </div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-warning btn-block"
+                        th:text="#{form.button.delete}"></button>
+            </div>
+            <div class="form-group col-md-4">
+                <button type="submit" class="btn btn-warning btn-block"
+                        th:text="#{form.button.cancel}"></button>
+            </div>
+        </div>
+
+        <div th:class="row">
+            <div class="col-sm-12">
+                <div class="row" th:unless="${msg == null}">
+                    <div class="alert alert-success" role="alert">
+                        <span th:utext="${msg}"></span>
+                    </div>
+                </div>
+                <br/>
+                <div class="row" th:if="${msg}">
+                    <div class="alert alert-danger" role="alert">
+                        <span th:utext="${msg}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+
+
+<div th:replace="fragments/footer :: footer"/>
+
+</body>
+</html>
