@@ -2,15 +2,15 @@
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration>
+      <configuration process_explicitly_annotated="false">
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/EnvanterApplication.java</file>
           <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/config/FacesInitializer.java</file>
           <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/config/Initializer.java</file>
-          <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/config/MvcConfig.java</file>
           <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/config/WebAppInitializer.java</file>
           <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/config/WebMvcConfigurerAdapter.java</file>
           <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/config/WebSecurityConfig.java</file>
+          <file>file://$MODULE_DIR$/src/main/java/com/emirci/envanter/config/I18nConfig.java</file>
         </fileset>
       </configuration>
     </facet>
