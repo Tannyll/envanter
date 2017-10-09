@@ -1,13 +1,16 @@
 package com.emirci.envanter.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by serdaremirci on 9/20/17.
  */
 @Entity
 @Table(name = "XAttTrademark")
-public class Trademark {
+public class Trademark implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,9 +20,14 @@ public class Trademark {
     @Column(name = "Trademark", length = 50)
     private String trademark;
 
-    @OneToOne(mappedBy = "trademarks")
+    @OneToMany(mappedBy = "trademarks", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Inventory inventory;
+    private Set<Inventory> inventoryes;
+
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getTrademarkId() {
         return trademarkId;
@@ -35,6 +43,14 @@ public class Trademark {
 
     public void setTrademark(String trademark) {
         this.trademark = trademark;
+    }
+
+    public Set<Inventory> getInventoryes() {
+        return inventoryes;
+    }
+
+    public void setInventoryes(Set<Inventory> inventoryes) {
+        this.inventoryes = inventoryes;
     }
 
     public Trademark() {

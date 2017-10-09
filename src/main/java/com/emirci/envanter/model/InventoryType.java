@@ -1,6 +1,8 @@
 package com.emirci.envanter.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 
 /**
@@ -9,7 +11,8 @@ import javax.persistence.*;
 @Entity
 //@Table(name = "XAttInventoryType", uniqueConstraints = @UniqueConstraint(columnNames = "InventoryTypeId", name = "PK_Inventory"))
 @Table(name = "XAttInventoryType")
-public class InventoryType {
+public class InventoryType implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +22,13 @@ public class InventoryType {
     @Column(name = "InventoryType")
     private String inventoryType;
 
-    @OneToOne(mappedBy = "inventoryTypes")
+    @OneToMany(mappedBy = "inventoryTypes", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Inventory inventory;
+    private Set<Inventory> inventoryes;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getInventoryTypeId() {
         return inventoryTypeId;
@@ -39,12 +46,12 @@ public class InventoryType {
         this.inventoryType = inventoryType;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public Set<Inventory> getInventoryes() {
+        return inventoryes;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public void setInventoryes(Set<Inventory> inventoryes) {
+        this.inventoryes = inventoryes;
     }
 
     public InventoryType() {

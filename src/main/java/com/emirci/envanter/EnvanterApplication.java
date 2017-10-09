@@ -101,11 +101,6 @@ public class EnvanterApplication extends SpringBootServletInitializer implements
         return resolver;
     }
 
-
-
-
-
-
     @Bean
     @Autowired
     public LocalValidatorFactoryBean validatorFactoryBean(MessageSource messageSource) {

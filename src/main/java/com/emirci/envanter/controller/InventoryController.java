@@ -7,6 +7,8 @@ import com.emirci.envanter.Repository.TrademarkRepository;
 import com.emirci.envanter.model.AppUser;
 import com.emirci.envanter.model.Inventory;
 import com.emirci.envanter.service.impl.MessageByLocaleServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -21,8 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -32,6 +32,8 @@ import java.util.Date;
 @Controller
 @RequestMapping("/inventory")
 public class InventoryController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(InventoryController.class);
 
     private InventoryRepository repo;
     private TrademarkRepository trademarkRepository;
@@ -77,9 +79,9 @@ public class InventoryController {
 
         ModelAndView modelAndView = new ModelAndView("inventory/update");
 
-        modelAndView.addObject("formBeanTrademark",trademarkRepository.findAll());
-        modelAndView.addObject("formBeanInventoryType",inventoryTypeRepository.findAll());
-        modelAndView.addObject("formBeanDepartment",departmentRepository.findAll());
+        modelAndView.addObject("formBeanTrademark", trademarkRepository.findAll());
+        modelAndView.addObject("formBeanInventoryType", inventoryTypeRepository.findAll());
+        modelAndView.addObject("formBeanDepartment", departmentRepository.findAll());
         modelAndView.addObject("formBean", repo.getOne(id));
 
         return modelAndView;
@@ -98,6 +100,7 @@ public class InventoryController {
         inventory.setInsertUserId("1");
 
         ModelAndView modelAndView = new ModelAndView("inventory/inventoryList");
+
         modelAndView.addObject("serverTime", Calendar.getInstance().getTime());
 
         if (bindingResult.hasErrors()) {
@@ -107,8 +110,12 @@ public class InventoryController {
 
         } else {
             repo.save(inventory);
+
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.saved"));
             modelAndView.addObject("formBean", new AppUser());
+
+            LOGGER.info("Updated the information of the todo entry: {}", inventory);
+
         }
 
         //modelAndView.setViewName("redirect:/");

@@ -24,19 +24,21 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
             </div>
         </div>
 
+        <input th:id="#{inventoryId}" th:value="#{inventoryId}" th:hidden="hidden"/>
+
         <div th:class="row">
             <div class="form-group col-md-4">
 
-
+                <span th:text="*{inventoryId}"></span>
                 <select th:field="*{inventoryTypes}" class="form-control" th:id="inventoryTypeId">
-
+                    <option selected="selected" value="" th:text="#{form.button.select}"></option>
                     <option
                             th:each="type : ${formBeanInventoryType}"
                             th:value="${type.inventoryTypeId}"
-                            th:text="${type.inventoryType}"
-                            th:readonly="(${type.inventoryTypeId} == *{inventoryTypes.inventoryTypeId})"
-                    >
+                            th:text="${type.inventoryType}">
                     </option>
+
+
                 </select>
 
                 <label th:if="${#fields.hasErrors('inventoryTypes.inventoryTypeId')}" th:errors="*{inventoryTypes}"
@@ -47,11 +49,12 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
 
 
                 <select th:field="*{trademarks}" class="form-control" th:id="trademarkId">
+                    <option selected="selected" value="" th:text="#{form.button.select}"></option>
+
                     <option
                             th:each="type : ${formBeanTrademark}"
                             th:value="${type.trademarkId}"
-                            th:text="${type.trademark}"
-                            th:selected="(${type.trademarkId} == *{trademarks.trademarkId})">
+                            th:text="${type.trademark}">
                     </option>
                 </select>
 
@@ -62,11 +65,13 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
             <div class="form-group col-md-4">
 
                 <select th:field="*{departments}" class="form-control" th:id="departmentId">
+                    <option selected="selected" value="" th:text="#{form.button.select}"></option>
+
                     <option
                             th:each="type : ${formBeanDepartment}"
                             th:value="${type.departmentId}"
-                            th:text="${type.departmentName}"
-                            th:selected="(${type.departmentId} == *{departments.departmentId})">
+                            th:text="${type.departmentName}">
+
                     </option>
                 </select>
 

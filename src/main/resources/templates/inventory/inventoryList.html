@@ -73,6 +73,9 @@
             <tr class="btn-success">
                 <th>#</th>
                 <th>Model</th>
+                <th>Trademark</th>
+                <th>Department</th>
+                <th>Type</th>
                 <th>Özellikler</th>
             </tr>
             </thead>
@@ -83,6 +86,9 @@
                             class="glyphicon glyphicon-edit"></span></a>
                 </td>
                 <td th:text="${itm.model}">model</td>
+                <td th:text="${itm.trademarks.trademark}">model</td>
+                <td th:text="${itm.departments.departmentName}">model</td>
+                <td th:text="${itm.inventoryTypes.inventoryType}">model</td>
                 <td th:text="${itm.feature}">feature</td>
 
             </tr>

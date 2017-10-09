@@ -1,13 +1,16 @@
 package com.emirci.envanter.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by serdaremirci on 9/20/17.
  */
 @Entity
 @Table(name = "XAttDepartment")
-public class Department {
+public class Department implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,9 +23,13 @@ public class Department {
     @Column(name = "DepartmentName")
     private String departmentName;
 
-    @OneToOne(mappedBy = "departments")
+    @OneToMany(mappedBy = "departments", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
-    private Inventory inventory;
+    private Set<Inventory> inventoryes;
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     public Long getDepartmentId() {
         return departmentId;
@@ -46,6 +53,14 @@ public class Department {
 
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName;
+    }
+
+    public Set<Inventory> getInventoryes() {
+        return inventoryes;
+    }
+
+    public void setInventoryes(Set<Inventory> inventoryes) {
+        this.inventoryes = inventoryes;
     }
 
     public Department() {

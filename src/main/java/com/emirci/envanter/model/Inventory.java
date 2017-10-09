@@ -1,6 +1,7 @@
 package com.emirci.envanter.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +9,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "XInventory")
-public class Inventory {
+public class Inventory implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,15 +19,15 @@ public class Inventory {
 
     //@OneToOne(fetch = FetchType.LAZY, mappedBy = "inventory", cascade = CascadeType.ALL, optional = false)
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "DepartmentId", foreignKey = @ForeignKey(name = "FK_XInventory_AttDepartment"), nullable = true)
     private Department departments;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TrademarkId", foreignKey = @ForeignKey(name = "FK_XInventory_AttTrademark"), nullable = true)
     private Trademark trademarks;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "InventoryTypeId", foreignKey = @ForeignKey(name = "FK_XInventory_AttInventoryType"), nullable = true)
     private InventoryType inventoryTypes;
 
@@ -173,11 +175,14 @@ public class Inventory {
         this.barcode = barcode;
     }
 
-    public Inventory(Department departments, Trademark trademarks, InventoryType inventoryTypes, String userId, String insertUserId, String usesUser, Date insertDate, String feature, String model, String invoiceNumber, Date invoiceDate, double price, String barcode) {
 
-        this.departments = departments;
-        this.trademarks = trademarks;
-        this.inventoryTypes = inventoryTypes;
+    public Inventory() {
+
+
+    }
+
+
+    public Inventory(String userId, String insertUserId, String usesUser, Date insertDate, String feature, String model, String invoiceNumber, Date invoiceDate, double price, String barcode) {
         this.userId = userId;
         this.insertUserId = insertUserId;
         this.usesUser = usesUser;
@@ -190,19 +195,10 @@ public class Inventory {
         this.barcode = barcode;
     }
 
-    public Inventory() {
-
-
-    }
-
-
     @Override
     public String toString() {
         return "Inventory{" +
                 "inventoryId=" + inventoryId +
-                ", departments=" + departments +
-                ", trademarks=" + trademarks +
-                ", inventoryTypes=" + inventoryTypes +
                 ", userId='" + userId + '\'' +
                 ", insertUserId='" + insertUserId + '\'' +
                 ", usesUser='" + usesUser + '\'' +

@@ -8,6 +8,8 @@ import com.emirci.envanter.model.Department;
 import com.emirci.envanter.model.Inventory;
 import com.emirci.envanter.model.InventoryType;
 import com.emirci.envanter.model.Trademark;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,7 @@ import java.util.*;
 public class DatabaseSeeder implements CommandLineRunner {
 
     //private VehicleUsageService service = VehicleUsageService.getInstance();
+    private static final Logger logger = LoggerFactory.getLogger(EnvanterApplication.class);
 
     @Autowired
     InventoryRepository inventoryRepository;
@@ -26,13 +29,13 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Autowired
     InventoryTypeRepository inventoryTypeRepository;
 
-/*    @Autowired
-    DepartmentRepository departmentRepository;*/
+    @Autowired
+    DepartmentRepository departmentRepository;
 
     @Autowired
     TrademarkRepository trademarkRepository;
 
-    public DatabaseSeeder(InventoryRepository inventoryRepository, InventoryTypeRepository inventoryTypeRepository, TrademarkRepository trademarkRepository) {
+    public DatabaseSeeder(InventoryRepository inventoryRepository, InventoryTypeRepository inventoryTypeRepository, DepartmentRepository departmentRepository, TrademarkRepository trademarkRepository) {
 
         this.inventoryRepository = inventoryRepository;
         this.inventoryTypeRepository = inventoryTypeRepository;
@@ -59,22 +62,22 @@ public class DatabaseSeeder implements CommandLineRunner {
         if (inventoryTypeRepository.count() == 0)
             getInventoryTypeSample();
 
-/*        if (departmentRepository.count() == 0)
-            getDepartmentSample();*/
+        if (departmentRepository.count() == 0)
+            getDepartmentSample();
 
         int barcode = r.nextInt(160 * 150 + 365 * 36501);
 
-        //Department department = departmentRepository.findOne((long) r.nextInt(4));
-        Trademark trademark = trademarkRepository.findOne((long) r.nextInt(4));
-        InventoryType inventoryType = inventoryTypeRepository.findOne((long) r.nextInt(4));
+        Department department = departmentRepository.findOne((long) 4);
+        Trademark trademark = trademarkRepository.findOne((long) 4);
+        InventoryType inventoryType = inventoryTypeRepository.findOne((long) 4);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 0; i++) {
 
             Inventory inventory = new Inventory();
 
-            //inventory.setDepartments(department);
-            //inventory.setTrademarks(trademark);
-            //inventory.setInventoryTypes(inventoryType);
+            inventory.setDepartments(department);
+            inventory.setTrademarks(trademark);
+            inventory.setInventoryTypes(inventoryType);
 
             inventory.setUserId("2");
             inventory.setInsertUserId("15002f34-c877-42de-b8dc-334b1195cd1c");
@@ -88,9 +91,13 @@ public class DatabaseSeeder implements CommandLineRunner {
             inventory.setBarcode(Integer.toString(barcode));
 
             inventoryRepository.save(inventory);
+
+        }
+
+        for (Inventory item : inventoryRepository.findAll()) {
+            logger.info(item.toString());
         }
     }
-
 
 
     private void getDepartmentSample() {
@@ -108,7 +115,12 @@ public class DatabaseSeeder implements CommandLineRunner {
         list.add(new Department("Üretim"));
         list.add(new Department("Genel"));
 
-        //departmentRepository.save(list);
+        departmentRepository.save(list);
+
+
+        for (Department department : departmentRepository.findAll()) {
+            logger.info(department.toString());
+        }
 
     }
 
@@ -130,6 +142,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         trademarkRepository.save(list);
 
+        for (Trademark trademark : trademarkRepository.findAll()) {
+            logger.info(trademark.toString());
+        }
+
     }
 
     private void getInventoryTypeSample() {
@@ -145,5 +161,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         inventoryTypeRepository.save(list);
 
+        for (InventoryType inventoryType : inventoryTypeRepository.findAll()) {
+            logger.info(inventoryType.toString());
+        }
     }
 }
