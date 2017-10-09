@@ -23,7 +23,7 @@ import javax.validation.Valid;
 import java.util.Calendar;
 
 /**
- * c sCreated by serdaremirci on 9/19/17.
+ * Created by serdaremirci on 9/19/17.
  */
 @Controller
 public class UserController {
