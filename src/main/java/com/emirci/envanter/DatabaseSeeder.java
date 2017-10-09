@@ -1,17 +1,12 @@
 package com.emirci.envanter;
 
-import com.emirci.envanter.Repository.DepartmentRepository;
-import com.emirci.envanter.Repository.InventoryRepository;
-import com.emirci.envanter.Repository.InventoryTypeRepository;
-import com.emirci.envanter.Repository.TrademarkRepository;
-import com.emirci.envanter.model.Department;
-import com.emirci.envanter.model.Inventory;
-import com.emirci.envanter.model.InventoryType;
-import com.emirci.envanter.model.Trademark;
+import com.emirci.envanter.Repository.*;
+import com.emirci.envanter.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
@@ -35,12 +30,24 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Autowired
     TrademarkRepository trademarkRepository;
 
-    public DatabaseSeeder(InventoryRepository inventoryRepository, InventoryTypeRepository inventoryTypeRepository, DepartmentRepository departmentRepository, TrademarkRepository trademarkRepository) {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    public DatabaseSeeder(InventoryRepository inventoryRepository, InventoryTypeRepository inventoryTypeRepository, DepartmentRepository departmentRepository, TrademarkRepository trademarkRepository, UserRepository userRepository, RoleRepository roleRepository) {
 
         this.inventoryRepository = inventoryRepository;
         this.inventoryTypeRepository = inventoryTypeRepository;
         //this.departmentRepository = departmentRepository;
         this.trademarkRepository = trademarkRepository;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public DatabaseSeeder() {
@@ -64,6 +71,14 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         if (departmentRepository.count() == 0)
             getDepartmentSample();
+
+        if (roleRepository.count() == 0)
+            getRole();
+
+        if (userRepository.count() == 0)
+            getUser();
+
+
 
         int barcode = r.nextInt(160 * 150 + 365 * 36501);
 
@@ -164,5 +179,28 @@ public class DatabaseSeeder implements CommandLineRunner {
         for (InventoryType inventoryType : inventoryTypeRepository.findAll()) {
             logger.info(inventoryType.toString());
         }
+    }
+
+    public void getRole() {
+        Role role = new Role();
+        role.setRole("USER");
+
+        roleRepository.save(role);
+
+
+    }
+
+    public void getUser() {
+        AppUser user = new AppUser();
+        user.setActive(1);
+        user.setEmail("serdar@emirci.com");
+        user.setName("Serdar");
+        user.setLastName("EMIRCI");
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
+        Role userRole = roleRepository.findByRole("USER");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+
+        userRepository.save(user);
     }
 }
