@@ -1,4 +1,4 @@
-package com.emirci.envanter.service.impl;
+package com.emirci.envanter.service;
 
 import java.util.Locale;
 

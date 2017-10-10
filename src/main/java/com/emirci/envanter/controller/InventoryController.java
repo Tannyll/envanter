@@ -1,14 +1,15 @@
 package com.emirci.envanter.controller;
 
 import com.emirci.envanter.Repository.DepartmentRepository;
-import com.emirci.envanter.Repository.InventoryRepository;
 import com.emirci.envanter.Repository.InventoryTypeRepository;
 import com.emirci.envanter.Repository.TrademarkRepository;
 import com.emirci.envanter.model.AppUser;
 import com.emirci.envanter.model.Inventory;
-import com.emirci.envanter.service.impl.MessageByLocaleServiceImpl;
+import com.emirci.envanter.service.InventoryService;
+import com.emirci.envanter.service.MessageByLocaleServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,30 +36,31 @@ public class InventoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryController.class);
 
-    private InventoryRepository repo;
-    private TrademarkRepository trademarkRepository;
-    private InventoryTypeRepository inventoryTypeRepository;
-    private DepartmentRepository departmentRepository;
+    @Autowired(required = true)
+    private InventoryService inventoryService;
+
+
+    //private InventoryRepository repo;
+    //private TrademarkRepository trademarkRepository;
+    //private InventoryTypeRepository inventoryTypeRepository;
+    //private DepartmentRepository departmentRepository;
+
     @Value("${app.name:test}")
     private String message = "message";
 
     @Inject
     MessageByLocaleServiceImpl messageByLocaleService;
 
-    public InventoryController(InventoryRepository repo, TrademarkRepository trademarkRepository, InventoryTypeRepository inventoryTypeRepository, DepartmentRepository departmentRepository) {
-        this.repo = repo;
-        this.trademarkRepository = trademarkRepository;
-        this.inventoryTypeRepository = inventoryTypeRepository;
-        this.departmentRepository = departmentRepository;
-    }
+    public InventoryController() {
 
+    }
 
     @RequestMapping("/list")
     public ModelAndView inventoryList() {
 
         ModelAndView model = new ModelAndView("inventory/inventoryList");
         model.addObject("message", this.message);
-        model.addObject("inventoryList", repo.findAll());
+        model.addObject("inventoryList", inventoryService.getAll());
 
         return model;
     }
@@ -79,10 +81,10 @@ public class InventoryController {
 
         ModelAndView modelAndView = new ModelAndView("inventory/update");
 
-        modelAndView.addObject("formBeanTrademark", trademarkRepository.findAll());
-        modelAndView.addObject("formBeanInventoryType", inventoryTypeRepository.findAll());
-        modelAndView.addObject("formBeanDepartment", departmentRepository.findAll());
-        modelAndView.addObject("formBean", repo.getOne(id));
+        //modelAndView.addObject("formBeanTrademark", trademarkRepository.findAll());
+        //modelAndView.addObject("formBeanInventoryType", inventoryTypeRepository.findAll());
+        //modelAndView.addObject("formBeanDepartment", departmentRepository.findAll());
+        modelAndView.addObject("formBean", inventoryService.get(id));
 
         return modelAndView;
     }
@@ -109,7 +111,7 @@ public class InventoryController {
             return modelAndView;
 
         } else {
-            repo.save(inventory);
+            inventoryService.saveOrUpdate(inventory);
 
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.saved"));
             modelAndView.addObject("formBean", new AppUser());
@@ -131,8 +133,7 @@ public class InventoryController {
 
         Long inventoryId = Long.parseLong(request.getParameter("inventoryId"));
 
-        repo.delete(inventoryId);
-
+        inventoryService.remove(inventoryService.get(inventoryId));
 
         modelAndView.setViewName("redirect:/");
 

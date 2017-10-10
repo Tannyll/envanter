@@ -5,7 +5,7 @@ import com.emirci.envanter.Repository.InventoryRepository;
 import com.emirci.envanter.model.AppUser;
 import com.emirci.envanter.service.SecurityService;
 import com.emirci.envanter.service.UserService;
-import com.emirci.envanter.service.impl.MessageByLocaleServiceImpl;
+import com.emirci.envanter.service.MessageByLocaleServiceImpl;
 import com.emirci.envanter.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

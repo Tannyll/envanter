@@ -2,6 +2,8 @@ package com.emirci.envanter;
 
 import com.emirci.envanter.config.Initializer;
 import com.emirci.envanter.config.WebMvcConfigurerAdapter;
+import org.hibernate.SessionFactory;
+import org.hibernate.ejb.HibernateEntityManagerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,23 +18,19 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.context.ServletContextAware;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import java.util.Locale;
 
 @Configuration
 @ComponentScan
-@EnableJpaRepositories
+//@EnableJpaRepositories("com.emirci.envanter.Repository")
 @EnableAutoConfiguration
 @SpringBootApplication
 public class EnvanterApplication extends SpringBootServletInitializer implements ServletContextAware {
@@ -59,6 +57,7 @@ public class EnvanterApplication extends SpringBootServletInitializer implements
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
     }
+
 
     @Bean
     public ServletContextInitializer servletContextCustomizer() {
@@ -109,5 +108,10 @@ public class EnvanterApplication extends SpringBootServletInitializer implements
         return lvfb;
     }
 
+
+    @Bean
+    public HibernateJpaSessionFactoryBean sessionFactoryBean() {
+        return new HibernateJpaSessionFactoryBean();
+    }
 
 }

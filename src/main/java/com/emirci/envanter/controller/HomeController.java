@@ -1,7 +1,6 @@
 package com.emirci.envanter.controller;
 
-import com.emirci.envanter.service.MessageByLocaleService;
-import com.emirci.envanter.service.impl.MessageByLocaleServiceImpl;
+import com.emirci.envanter.service.MessageByLocaleServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

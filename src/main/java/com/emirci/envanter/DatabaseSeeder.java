@@ -2,11 +2,12 @@ package com.emirci.envanter;
 
 import com.emirci.envanter.Repository.*;
 import com.emirci.envanter.model.*;
+import com.emirci.envanter.service.InventoryService;
+import com.emirci.envanter.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
@@ -19,36 +20,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(EnvanterApplication.class);
 
     @Autowired
-    InventoryRepository inventoryRepository;
-
-    @Autowired
-    InventoryTypeRepository inventoryTypeRepository;
-
-    @Autowired
-    DepartmentRepository departmentRepository;
-
-    @Autowired
-    TrademarkRepository trademarkRepository;
-
-
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    public DatabaseSeeder(InventoryRepository inventoryRepository, InventoryTypeRepository inventoryTypeRepository, DepartmentRepository departmentRepository, TrademarkRepository trademarkRepository, UserRepository userRepository, RoleRepository roleRepository) {
-
-        this.inventoryRepository = inventoryRepository;
-        this.inventoryTypeRepository = inventoryTypeRepository;
-        //this.departmentRepository = departmentRepository;
-        this.trademarkRepository = trademarkRepository;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
+    private InventoryService inventoryService;
 
     public DatabaseSeeder() {
 
@@ -63,36 +35,33 @@ public class DatabaseSeeder implements CommandLineRunner {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
                 .withLocale(Locale.US);
 
-        if (trademarkRepository.count() == 0)
-            getTrademarkSample();
+/*        if (trademarkRepository.count() == 0)
+            getTrademarkSample();*/
 
-        if (inventoryTypeRepository.count() == 0)
-            getInventoryTypeSample();
+/*        if (inventoryTypeRepository.count() == 0)
+            getInventoryTypeSample();*/
 
-        if (departmentRepository.count() == 0)
-            getDepartmentSample();
+/*        if (departmentRepository.count() == 0)
+            getDepartmentSample();*/
 
-        if (roleRepository.count() == 0)
-            getRole();
 
-        if (userRepository.count() == 0)
-            getUser();
-
+/*        if (userService.findUserByEmail("serdar@emirci.com") == null)
+            getUser();*/
 
 
         int barcode = r.nextInt(160 * 150 + 365 * 36501);
 
-        Department department = departmentRepository.findOne((long) 4);
-        Trademark trademark = trademarkRepository.findOne((long) 4);
-        InventoryType inventoryType = inventoryTypeRepository.findOne((long) 4);
+        //Department department = departmentRepository.findOne((long) 4);
+        //Trademark trademark = trademarkRepository.findOne((long) 4);
+        //InventoryType inventoryType = inventoryTypeRepository.findOne((long) 4);
 
-        for (int i = 0; i < 0; i++) {
+        for (int i = 0; i < 2; i++) {
 
             Inventory inventory = new Inventory();
 
-            inventory.setDepartments(department);
-            inventory.setTrademarks(trademark);
-            inventory.setInventoryTypes(inventoryType);
+            //inventory.setDepartments(department);
+            //inventory.setTrademarks(trademark);
+            //inventory.setInventoryTypes(inventoryType);
 
             inventory.setUserId("2");
             inventory.setInsertUserId("15002f34-c877-42de-b8dc-334b1195cd1c");
@@ -105,11 +74,12 @@ public class DatabaseSeeder implements CommandLineRunner {
             inventory.setPrice(1.234);
             inventory.setBarcode(Integer.toString(barcode));
 
-            inventoryRepository.save(inventory);
+            inventoryService.saveOrUpdate(inventory);
+
 
         }
 
-        for (Inventory item : inventoryRepository.findAll()) {
+        for (Inventory item : inventoryService.getAll()) {
             logger.info(item.toString());
         }
     }
@@ -130,12 +100,12 @@ public class DatabaseSeeder implements CommandLineRunner {
         list.add(new Department("Üretim"));
         list.add(new Department("Genel"));
 
-        departmentRepository.save(list);
+        //departmentRepository.save(list);
 
 
-        for (Department department : departmentRepository.findAll()) {
+  /*      for (Department department : departmentRepository.findAll()) {
             logger.info(department.toString());
-        }
+        }*/
 
     }
 
@@ -155,11 +125,11 @@ public class DatabaseSeeder implements CommandLineRunner {
         list.add(new Trademark("Samsung"));
         list.add(new Trademark("Beko"));
 
-        trademarkRepository.save(list);
+        //trademarkRepository.save(list);
 
-        for (Trademark trademark : trademarkRepository.findAll()) {
+        /*for (Trademark trademark : trademarkRepository.findAll()) {
             logger.info(trademark.toString());
-        }
+        }*/
 
     }
 
@@ -174,33 +144,10 @@ public class DatabaseSeeder implements CommandLineRunner {
         list.add(new InventoryType("Fotoğraf Makinası"));
         list.add(new InventoryType("Video Kamera"));
 
-        inventoryTypeRepository.save(list);
+        // inventoryTypeRepository.save(list);
 
-        for (InventoryType inventoryType : inventoryTypeRepository.findAll()) {
+     /*   for (InventoryType inventoryType : inventoryTypeRepository.findAll()) {
             logger.info(inventoryType.toString());
-        }
-    }
-
-    public void getRole() {
-        Role role = new Role();
-        role.setRole("USER");
-
-        roleRepository.save(role);
-
-
-    }
-
-    public void getUser() {
-        AppUser user = new AppUser();
-        user.setActive(1);
-        user.setEmail("serdar@emirci.com");
-        user.setName("Serdar");
-        user.setLastName("EMIRCI");
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-        Role userRole = roleRepository.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-
-        userRepository.save(user);
+        }*/
     }
 }

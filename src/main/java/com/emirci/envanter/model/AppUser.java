@@ -3,7 +3,6 @@ package com.emirci.envanter.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.emirci.envanter.service.impl.MessageByLocaleServiceImpl;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Entity
 @Table(name = "appuser")
