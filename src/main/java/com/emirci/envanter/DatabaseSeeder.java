@@ -1,9 +1,10 @@
 package com.emirci.envanter;
 
-import com.emirci.envanter.Repository.*;
-import com.emirci.envanter.model.*;
+import com.emirci.envanter.model.Department;
+import com.emirci.envanter.model.Inventory;
+import com.emirci.envanter.model.InventoryType;
+import com.emirci.envanter.model.Trademark;
 import com.emirci.envanter.service.InventoryService;
-import com.emirci.envanter.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         //Trademark trademark = trademarkRepository.findOne((long) 4);
         //InventoryType inventoryType = inventoryTypeRepository.findOne((long) 4);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 0; i++) {
 
             Inventory inventory = new Inventory();
 

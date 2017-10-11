@@ -12,8 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * Created by serdaremirci on 10/10/17.
  */
-@Service
+@Service("inventoryService")
 public class InventoryServiceImpl extends GenericServiceImpl<Inventory, Long> implements InventoryService {
+
 
     private InventoryDao inventoryDao;
 

@@ -26,7 +26,8 @@ public class Role {
     public String getRole() {
         return role;
     }
-    public void setRole(String role) {
+
+    public void setRole(String roleName) {
         this.role = role;
     }
 

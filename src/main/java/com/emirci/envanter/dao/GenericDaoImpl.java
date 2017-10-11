@@ -2,11 +2,10 @@ package com.emirci.envanter.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -18,23 +17,39 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 @Repository
 @Transactional
-public class GenericDaoImpl<E, K extends Serializable> implements GenericDao<E, K> {
+public abstract class GenericDaoImpl<E, K extends Serializable> implements GenericDao<E, K> {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    //private static final Logger LOGGER = LoggerFactory.getLogger(GenericDaoImpl.class);
+
+    private SessionFactory _sessionFactory;
+
+
+    protected Session currentSession() {
+        _sessionFactory.openSession();
+        return _sessionFactory.getCurrentSession();
+
+    }
 
     protected Class<? extends E> daoType;
 
 
     public GenericDaoImpl() {
         Type t = getClass().getGenericSuperclass();
-        ParameterizedType pt = (ParameterizedType) t;
-        daoType = (Class) pt.getActualTypeArguments()[0];
+
+        ParameterizedType parametrizedType = null;
+
+        while (parametrizedType == null) {
+            if ((t instanceof ParameterizedType)) {
+                parametrizedType = (ParameterizedType) t;
+            } else {
+                t = ((Class<?>) t).getGenericSuperclass();
+            }
+        }
+
+
+        daoType = (Class) parametrizedType.getActualTypeArguments()[0];
     }
 
-    protected Session currentSession() {
-        return sessionFactory.getCurrentSession();
-    }
 
     @Override
     public void add(E entity) {
@@ -63,6 +78,6 @@ public class GenericDaoImpl<E, K extends Serializable> implements GenericDao<E, 
 
     @Override
     public List<E> getAll() {
-        return currentSession().createCriteria(daoType).list();
+        return currentSession().createQuery("from " + daoType).list();
     }
 }

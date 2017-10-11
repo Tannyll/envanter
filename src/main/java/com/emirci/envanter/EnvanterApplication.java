@@ -108,10 +108,10 @@ public class EnvanterApplication extends SpringBootServletInitializer implements
         return lvfb;
     }
 
-
+/*
     @Bean
     public HibernateJpaSessionFactoryBean sessionFactoryBean() {
         return new HibernateJpaSessionFactoryBean();
-    }
+    }*/
 
 }

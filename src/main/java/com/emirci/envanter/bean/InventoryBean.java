@@ -1,17 +1,13 @@
 package com.emirci.envanter.bean;
 
-import com.emirci.envanter.Repository.InventoryRepository;
 import com.emirci.envanter.model.Inventory;
+import com.emirci.envanter.service.InventoryService;
 
 import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ViewScoped;
 import java.util.List;
 import java.io.Serializable;
-import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 
 /**
  * Created by serdaremirci on 9/25/17.
@@ -20,7 +16,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class InventoryBean implements Serializable {
 
-    private InventoryRepository repo;
+    private InventoryService service;
 
     public void setInventoryList(List<Inventory> inventoryList) {
         this.inventoryList = inventoryList;
@@ -28,8 +24,8 @@ public class InventoryBean implements Serializable {
 
     private List<Inventory> inventoryList;
 
-    public InventoryBean(InventoryRepository repo) {
-        this.repo = repo;
+    public InventoryBean() {
+
     }
 
     public List<Inventory> getInventoryList() {
@@ -39,7 +35,7 @@ public class InventoryBean implements Serializable {
     @PostConstruct
     public void Init(){
 
-        inventoryList = repo.findAll();
+        inventoryList = service.getAll();
 
     }
 

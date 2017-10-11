@@ -1,8 +1,5 @@
 package com.emirci.envanter.controller;
 
-import com.emirci.envanter.Repository.DepartmentRepository;
-import com.emirci.envanter.Repository.InventoryTypeRepository;
-import com.emirci.envanter.Repository.TrademarkRepository;
 import com.emirci.envanter.model.AppUser;
 import com.emirci.envanter.model.Inventory;
 import com.emirci.envanter.service.InventoryService;
@@ -36,7 +33,7 @@ public class InventoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryController.class);
 
-    @Autowired(required = true)
+    @Autowired
     private InventoryService inventoryService;
 
 

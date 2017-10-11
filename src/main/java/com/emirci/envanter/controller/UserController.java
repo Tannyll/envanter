@@ -1,11 +1,10 @@
 package com.emirci.envanter.controller;
 
 
-import com.emirci.envanter.Repository.InventoryRepository;
 import com.emirci.envanter.model.AppUser;
+import com.emirci.envanter.service.MessageByLocaleServiceImpl;
 import com.emirci.envanter.service.SecurityService;
 import com.emirci.envanter.service.UserService;
-import com.emirci.envanter.service.MessageByLocaleServiceImpl;
 import com.emirci.envanter.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -28,10 +27,7 @@ import java.util.Calendar;
 @Controller
 public class UserController {
 
-
-    InventoryRepository repository;
-
-    @Autowired
+    @Autowired(required = true)
     private UserService userService;
 
     @Autowired
@@ -43,8 +39,7 @@ public class UserController {
     @Inject
     MessageByLocaleServiceImpl messageByLocaleService;
 
-    public UserController(InventoryRepository repository) {
-        this.repository = repository;
+    public UserController() {
 
     }
 
