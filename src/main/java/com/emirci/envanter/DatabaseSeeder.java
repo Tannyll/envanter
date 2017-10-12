@@ -1,9 +1,10 @@
 package com.emirci.envanter;
 
-import com.emirci.envanter.Repository.*;
-import com.emirci.envanter.model.*;
-import com.emirci.envanter.service.InventoryService;
-import com.emirci.envanter.service.UserService;
+import com.emirci.envanter.model.Department;
+import com.emirci.envanter.model.Inventory;
+import com.emirci.envanter.model.InventoryType;
+import com.emirci.envanter.model.Trademark;
+import com.emirci.envanter.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,15 @@ public class DatabaseSeeder implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(EnvanterApplication.class);
 
     @Autowired
+    private UserService userService;
+    @Autowired
     private InventoryService inventoryService;
+    @Autowired
+    private DepartmentService departmentService;
+    @Autowired
+    private InventoryTypeService inventoryTypeService;
+    @Autowired
+    private TrademarkService trademarkService;
 
     public DatabaseSeeder() {
 
@@ -35,14 +44,14 @@ public class DatabaseSeeder implements CommandLineRunner {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
                 .withLocale(Locale.US);
 
-/*        if (trademarkRepository.count() == 0)
-            getTrademarkSample();*/
+        if (trademarkService.getAll().size() == 0)
+            getTrademarkSample();
 
-/*        if (inventoryTypeRepository.count() == 0)
-            getInventoryTypeSample();*/
+        if (inventoryTypeService.getAll().size() == 0)
+            getInventoryTypeSample();
 
-/*        if (departmentRepository.count() == 0)
-            getDepartmentSample();*/
+        if (departmentService.getAll().size() == 0)
+            getDepartmentSample();
 
 
 /*        if (userService.findUserByEmail("serdar@emirci.com") == null)
@@ -55,7 +64,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         //Trademark trademark = trademarkRepository.findOne((long) 4);
         //InventoryType inventoryType = inventoryTypeRepository.findOne((long) 4);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
 
             Inventory inventory = new Inventory();
 
@@ -74,7 +83,7 @@ public class DatabaseSeeder implements CommandLineRunner {
             inventory.setPrice(1.234);
             inventory.setBarcode(Integer.toString(barcode));
 
-            inventoryService.saveOrUpdate(inventory);
+            inventoryService.update(inventory);
 
 
         }
@@ -100,12 +109,12 @@ public class DatabaseSeeder implements CommandLineRunner {
         list.add(new Department("Üretim"));
         list.add(new Department("Genel"));
 
-        //departmentRepository.save(list);
+        //departmentService.update(list);
 
 
-  /*      for (Department department : departmentRepository.findAll()) {
+        for (Department department : departmentService.getAll()) {
             logger.info(department.toString());
-        }*/
+        }
 
     }
 
@@ -125,11 +134,12 @@ public class DatabaseSeeder implements CommandLineRunner {
         list.add(new Trademark("Samsung"));
         list.add(new Trademark("Beko"));
 
+        trademarkService.saveOrUpdateList(list);
         //trademarkRepository.save(list);
 
-        /*for (Trademark trademark : trademarkRepository.findAll()) {
+        for (Trademark trademark : trademarkService.getAll()) {
             logger.info(trademark.toString());
-        }*/
+        }
 
     }
 
@@ -146,8 +156,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
         // inventoryTypeRepository.save(list);
 
-     /*   for (InventoryType inventoryType : inventoryTypeRepository.findAll()) {
+        for (InventoryType inventoryType : inventoryTypeService.getAll()) {
             logger.info(inventoryType.toString());
-        }*/
+        }
     }
 }

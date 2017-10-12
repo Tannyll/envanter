@@ -1,12 +1,8 @@
 package com.emirci.envanter.controller;
 
-import com.emirci.envanter.Repository.DepartmentRepository;
-import com.emirci.envanter.Repository.InventoryTypeRepository;
-import com.emirci.envanter.Repository.TrademarkRepository;
 import com.emirci.envanter.model.AppUser;
 import com.emirci.envanter.model.Inventory;
-import com.emirci.envanter.service.InventoryService;
-import com.emirci.envanter.service.MessageByLocaleServiceImpl;
+import com.emirci.envanter.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +32,24 @@ public class InventoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryController.class);
 
-    @Autowired(required = true)
+
     private InventoryService inventoryService;
 
+    @Autowired
+    private DepartmentService departmentService;
 
-    //private InventoryRepository repo;
+    @Autowired
+    private InventoryTypeService inventoryTypeService;
+
+    @Autowired
+    private TrademarkService trademarkService;
+
+    @Autowired(required = true)
+    public void setInventoryService(InventoryService inventoryService) {
+        this.inventoryService = inventoryService;
+    }
+
+//private InventoryRepository repo;
     //private TrademarkRepository trademarkRepository;
     //private InventoryTypeRepository inventoryTypeRepository;
     //private DepartmentRepository departmentRepository;
@@ -81,9 +90,9 @@ public class InventoryController {
 
         ModelAndView modelAndView = new ModelAndView("inventory/update");
 
-        //modelAndView.addObject("formBeanTrademark", trademarkRepository.findAll());
-        //modelAndView.addObject("formBeanInventoryType", inventoryTypeRepository.findAll());
-        //modelAndView.addObject("formBeanDepartment", departmentRepository.findAll());
+        modelAndView.addObject("formBeanTrademark", trademarkService.getAll());
+        modelAndView.addObject("formBeanInventoryType", inventoryTypeService.getAll());
+        modelAndView.addObject("formBeanDepartment", departmentService.getAll());
         modelAndView.addObject("formBean", inventoryService.get(id));
 
         return modelAndView;
@@ -120,7 +129,7 @@ public class InventoryController {
 
         }
 
-        //modelAndView.setViewName("redirect:/");
+        modelAndView.setViewName("redirect:/inventory/list");
 
         return modelAndView;
     }
