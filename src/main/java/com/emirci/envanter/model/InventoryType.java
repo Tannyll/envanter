@@ -15,8 +15,8 @@ public class InventoryType implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "InventoryTypeId", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "InventoryTypeId", unique = true, nullable = false)
     private Long inventoryTypeId;
 
     @Column(name = "InventoryType")

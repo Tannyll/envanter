@@ -1,31 +1,31 @@
 package com.emirci.envanter.dao;
 
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
 
-/**
- * Created by serdaremirci on 10/10/17.
- */
-@SuppressWarnings("unchecked")
+//@SuppressWarnings("SpringJavaAutowiringInspection")
 @Repository
 @Transactional
 public abstract class GenericDaoImpl<E, K extends Serializable> implements GenericDao<E, K> {
 
     //private static final Logger LOGGER = LoggerFactory.getLogger(GenericDaoImpl.class);
 
+
+    @Autowired
     private SessionFactory _sessionFactory;
 
 
     protected Session currentSession() {
-        _sessionFactory.openSession();
+        //_sessionFactory.openSession();
         return _sessionFactory.getCurrentSession();
 
     }
@@ -34,15 +34,15 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
 
 
     public GenericDaoImpl() {
-        Type t = getClass().getGenericSuperclass();
+        Type type = getClass().getGenericSuperclass();
 
         ParameterizedType parametrizedType = null;
 
         while (parametrizedType == null) {
-            if ((t instanceof ParameterizedType)) {
-                parametrizedType = (ParameterizedType) t;
+            if ((type instanceof ParameterizedType)) {
+                parametrizedType = (ParameterizedType) type;
             } else {
-                t = ((Class<?>) t).getGenericSuperclass();
+                type = ((Class<?>) type).getGenericSuperclass();
             }
         }
 
@@ -78,6 +78,7 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
 
     @Override
     public List<E> getAll() {
-        return currentSession().createQuery("from " + daoType).list();
+        //return currentSession().createQuery(String.format("select e from %s e ", daoType.getClass().getSimpleName())).list();
+        return currentSession().createQuery("FROM " + daoType.getName()).list();
     }
 }

@@ -13,8 +13,8 @@ public class Department implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "DepartmentId", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "DepartmentId", unique = true, nullable = false)
     private Long departmentId;
 
     @Column(name = "AuthorizedUserId")

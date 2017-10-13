@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by serdaremirci on 10/10/17.
  */
@@ -41,5 +43,10 @@ public class InventoryServiceImpl extends GenericServiceImpl<Inventory, Long> im
     @Transactional(propagation = Propagation.REQUIRED, readOnly = true)
     public Inventory getInventory(Long id) {
         return inventoryDao.getInventory(id);
+    }
+
+    @Override
+    public void saveOrUpdateList(List<Inventory> entity) {
+
     }
 }

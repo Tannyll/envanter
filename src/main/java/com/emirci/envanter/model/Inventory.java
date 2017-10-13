@@ -13,23 +13,26 @@ public class Inventory implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "InventoryId", unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "InventoryId", unique = true, nullable = false)
     private Long inventoryId;
 
     //@OneToOne(fetch = FetchType.LAZY, mappedBy = "inventory", cascade = CascadeType.ALL, optional = false)
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "DepartmentId", foreignKey = @ForeignKey(name = "FK_XInventory_AttDepartment"), nullable = true)
     private Department departments;
+
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TrademarkId", foreignKey = @ForeignKey(name = "FK_XInventory_AttTrademark"), nullable = true)
     private Trademark trademarks;
 
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "InventoryTypeId", foreignKey = @ForeignKey(name = "FK_XInventory_AttInventoryType"), nullable = true)
     private InventoryType inventoryTypes;
+
 
     @Column(name = "UserId", length = 128)
     private String userId;
@@ -61,6 +64,16 @@ public class Inventory implements Serializable {
     @Column(name = "Barcode")
     private String barcode;
 
+    @Column(name = "VERSION")
+    private int version;
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public InventoryType getInventoryTypes() {
         return inventoryTypes;

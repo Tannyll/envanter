@@ -2,27 +2,30 @@ package com.emirci.envanter.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
-import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-//@Configuration
-//@EnableTransactionManagement
-//@PropertySource(value = {"classpath:application-dev.properties"})
+@Configuration
+@EnableTransactionManagement
+@PropertySource(value = {"classpath:application-dev.properties"})
 public class DBConfiguration {
 
+    @Autowired
     private Environment env;
-
-    public JpaProperties jpaProperties;
 
     @Bean
     public DataSource dataSource() {
@@ -36,19 +39,18 @@ public class DBConfiguration {
 
     @Bean("sessionFactory")
     @Primary
-    public LocalSessionFactoryBean sessionFactory() {
-        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan(new String[]{"com.emirci.envanter.model"});
+    public LocalSessionFactoryBean sessionFactory() throws ClassNotFoundException {
 
         Properties hibernateProp = new Properties();
 
         hibernateProp.put(AvailableSettings.DIALECT, env.getRequiredProperty("hibernate.dialect"));
         hibernateProp.put(AvailableSettings.SHOW_SQL, env.getRequiredProperty("hibernate.show-sql"));
-        hibernateProp.put(AvailableSettings.HBM2DDL_AUTO, jpaProperties.getHibernate().getDdlAuto());
-        //env.getRequiredProperty("hibernate.ddl-auto"));
+        hibernateProp.put(AvailableSettings.HBM2DDL_AUTO, env.getRequiredProperty("hibernate.ddl-auto"));
         hibernateProp.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, env.getRequiredProperty("hibernate.current.session.context.class"));
 
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource());
+        sessionFactory.setPackagesToScan(new String[]{"com.emirci.envanter.model"});
         sessionFactory.setHibernateProperties(hibernateProp);
 
         return sessionFactory;
@@ -58,8 +60,8 @@ public class DBConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.emirci.envanter.model"});
-        em.setPersistenceUnitName("notDefaultDb");
+        em.setPackagesToScan("com");
+        //em.setPersistenceUnitName("notDefaultDb");
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setGenerateDdl(false);
@@ -67,16 +69,23 @@ public class DBConfiguration {
         return em;
     }
 
+    @Bean(name = "hibernateTemplate")
+    public HibernateTemplate hibernateTemplate() throws ClassNotFoundException {
+
+        return new HibernateTemplate(sessionFactory().getObject());
+    }
+
     @Bean
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+    public HibernateTransactionManager transactionManager(SessionFactory sf) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
-        transactionManager.setSessionFactory(sessionFactory);
+
+        transactionManager.setSessionFactory(sf);
 
         return transactionManager;
     }
 
 
 }
-
+//https://stackoverflow.com/questions/37704414/spring-boot-hibernate-5-integration-error
 //http://www.onlinetutorialspoint.com/spring-boot/spring-boot-hibernate-integration-example.html
 //http://www.codesenior.com/en/tutorial/Spring-Generic-DAO-and-Generic-Service-Implementation

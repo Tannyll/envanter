@@ -86,10 +86,10 @@
                             class="glyphicon glyphicon-edit"></span></a>
                 </td>
                 <td th:text="${itm.model}">model</td>
-                <td th:text="${itm.trademarks.trademark}">model</td>
-                <td th:text="${itm.departments.departmentName}">model</td>
-                <td th:text="${itm.inventoryTypes.inventoryType}">model</td>
-                <td th:text="${itm.feature}">feature</td>
+                <td th:text="${itm.trademarks!=null}?${itm.trademarks.trademark}"></td>
+                <td th:text="*{itm.departments!=null}?${itm.departments.departmentName}"></td>
+                <td th:text="*{itm.inventoryTypes!=null}?${itm.inventoryTypes.inventoryType}"></td>
+                <td th:text="${itm.feature}"></td>
 
             </tr>
             </tbody>

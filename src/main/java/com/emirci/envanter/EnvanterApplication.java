@@ -2,25 +2,24 @@ package com.emirci.envanter;
 
 import com.emirci.envanter.config.Initializer;
 import com.emirci.envanter.config.WebMvcConfigurerAdapter;
-import org.hibernate.SessionFactory;
-import org.hibernate.ejb.HibernateEntityManagerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -31,18 +30,20 @@ import javax.servlet.ServletException;
 @Configuration
 @ComponentScan
 //@EnableJpaRepositories("com.emirci.envanter.Repository")
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = HibernateJpaAutoConfiguration.class)
 @SpringBootApplication
-public class EnvanterApplication extends SpringBootServletInitializer implements ServletContextAware {
+
+public class EnvanterApplication extends SpringBootServletInitializer implements ApplicationContextAware {
 
     private final String PARAM_LANGUAGE = "lang";
 
+    private ApplicationContext applicationContext;
+
     public static void main(String[] args) throws Throwable {
+
         //ApplicationContext ctx = SpringApplication.run(EnvanterApplication.class);
 
         SpringApplication.run(EnvanterApplication.class, args);
-
-        //SpringApplication.run(HomeController.class,args);
 
     }
 
@@ -53,10 +54,20 @@ public class EnvanterApplication extends SpringBootServletInitializer implements
     }
 
     @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+
+    }
+
+    public ApplicationContext getContext() {
+        return applicationContext;
+    }
+
+    /*    @Override
     public void setServletContext(ServletContext servletContext) {
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-    }
+    }*/
 
 
     @Bean
@@ -108,10 +119,12 @@ public class EnvanterApplication extends SpringBootServletInitializer implements
         return lvfb;
     }
 
+}
+
 /*
     @Bean
     public HibernateJpaSessionFactoryBean sessionFactoryBean() {
         return new HibernateJpaSessionFactoryBean();
     }*/
 
-}
+

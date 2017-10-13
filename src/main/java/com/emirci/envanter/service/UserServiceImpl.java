@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl extends GenericServiceImpl<AppUser, Integer> implements UserService {
@@ -46,4 +47,8 @@ public class UserServiceImpl extends GenericServiceImpl<AppUser, Integer> implem
         userDao.saveOrUpdate(user);
     }
 
+    @Override
+    public void saveOrUpdateList(List<AppUser> entity) {
+
+    }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service("roleService")
 public class RoleServiceImpl extends GenericServiceImpl<Role, Integer> implements RoleService {
@@ -32,4 +33,8 @@ public class RoleServiceImpl extends GenericServiceImpl<Role, Integer> implement
         return roleDao.findByRole(role);
     }
 
+    @Override
+    public void saveOrUpdateList(List<Role> entity) {
+
+    }
 }

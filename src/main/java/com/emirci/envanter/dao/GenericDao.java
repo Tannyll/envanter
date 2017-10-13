@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface GenericDao<E, K> {
 
+
     public void add(E entity);
 
     public void saveOrUpdate(E entity);
