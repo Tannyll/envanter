@@ -19,19 +19,20 @@ public class Inventory implements Serializable {
 
     //@OneToOne(fetch = FetchType.LAZY, mappedBy = "inventory", cascade = CascadeType.ALL, optional = false)
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    //@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "DepartmentId", foreignKey = @ForeignKey(name = "FK_XInventory_AttDepartment"), nullable = true)
-    private Department departments;
+    private Department depar;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "TrademarkId", foreignKey = @ForeignKey(name = "FK_XInventory_AttTrademark"), nullable = true)
-    private Trademark trademarks;
+    private Trademark trade;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "InventoryTypeId", foreignKey = @ForeignKey(name = "FK_XInventory_AttInventoryType"), nullable = true)
-    private InventoryType inventoryTypes;
+    private InventoryType invtyp;
 
 
     @Column(name = "UserId", length = 128)
@@ -67,20 +68,8 @@ public class Inventory implements Serializable {
     @Column(name = "VERSION")
     private int version;
 
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public InventoryType getInventoryTypes() {
-        return inventoryTypes;
-    }
-
-    public void setInventoryTypes(InventoryType inventoryTypes) {
-        this.inventoryTypes = inventoryTypes;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Long getInventoryId() {
@@ -91,21 +80,28 @@ public class Inventory implements Serializable {
         this.inventoryId = inventoryId;
     }
 
-    public Department getDepartments() {
-        return departments;
-
+    public Department getDepar() {
+        return depar;
     }
 
-    public void setDepartments(Department departments) {
-        this.departments = departments;
+    public void setDepar(Department depar) {
+        this.depar = depar;
     }
 
-    public Trademark getTrademarks() {
-        return trademarks;
+    public Trademark getTrade() {
+        return trade;
     }
 
-    public void setTrademarks(Trademark trademarks) {
-        this.trademarks = trademarks;
+    public void setTrade(Trademark trade) {
+        this.trade = trade;
+    }
+
+    public InventoryType getInvtyp() {
+        return invtyp;
+    }
+
+    public void setInvtyp(InventoryType invtyp) {
+        this.invtyp = invtyp;
     }
 
     public String getUserId() {
@@ -188,6 +184,13 @@ public class Inventory implements Serializable {
         this.barcode = barcode;
     }
 
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
     public Inventory() {
 

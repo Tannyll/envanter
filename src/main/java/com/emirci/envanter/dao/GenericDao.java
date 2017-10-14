@@ -13,6 +13,8 @@ public interface GenericDao<E, K> {
 
     public void saveOrUpdate(E entity);
 
+    public void saveOrUpdate(List<E> entity);
+    
     public void update(E entity);
 
     public void remove(E entity);
@@ -20,4 +22,7 @@ public interface GenericDao<E, K> {
     public E find(K key);
 
     public List<E> getAll();
+
+    public List<E> get(String queryString);
+
 }

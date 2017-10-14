@@ -1,8 +1,8 @@
 package com.emirci.envanter.controller;
 
-import com.emirci.envanter.model.AppUser;
-import com.emirci.envanter.model.Inventory;
+import com.emirci.envanter.model.*;
 import com.emirci.envanter.service.*;
+import com.emirci.envanter.validator.InventoryValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,10 @@ public class InventoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryController.class);
 
+    @Autowired(required = true)
+    private InventoryValidator inventoryValidator;
 
+    @Autowired(required = true)
     private InventoryService inventoryService;
 
     @Autowired
@@ -43,16 +46,6 @@ public class InventoryController {
 
     @Autowired
     private TrademarkService trademarkService;
-
-    @Autowired(required = true)
-    public void setInventoryService(InventoryService inventoryService) {
-        this.inventoryService = inventoryService;
-    }
-
-//private InventoryRepository repo;
-    //private TrademarkRepository trademarkRepository;
-    //private InventoryTypeRepository inventoryTypeRepository;
-    //private DepartmentRepository departmentRepository;
 
     @Value("${app.name:test}")
     private String message = "message";
@@ -74,13 +67,20 @@ public class InventoryController {
         return model;
     }
 
-    @RequestMapping(value = "/newInventory", method = RequestMethod.GET)
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
     public ModelAndView newInventory() {
 
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView("inventory/update");
+        Inventory inventory = new Inventory();
+        inventory.setInvtyp(new InventoryType());
+        inventory.setTrade(new Trademark());
+        inventory.setDepar(new Department());
 
-        modelAndView.addObject("formBean", new Inventory());
-        modelAndView.setViewName("update");
+        modelAndView.addObject("formBeanTrademark", trademarkService.getAll());
+        modelAndView.addObject("formBeanInventoryType", inventoryTypeService.getAll());
+        modelAndView.addObject("formBeanDepartment", departmentService.getAll());
+        modelAndView.addObject("formBean", inventory);
+
         return modelAndView;
     }
 
@@ -110,44 +110,58 @@ public class InventoryController {
         inventory.setUserId("1");
         inventory.setInsertUserId("1");
 
-        ModelAndView modelAndView = new ModelAndView("inventory/inventoryList");
+        ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("serverTime", Calendar.getInstance().getTime());
 
+        inventoryValidator.validate(inventory, bindingResult);
+
         if (bindingResult.hasErrors()) {
+            modelAndView.addObject("formBeanTrademark", trademarkService.getAll());
+            modelAndView.addObject("formBeanInventoryType", inventoryTypeService.getAll());
+            modelAndView.addObject("formBeanDepartment", departmentService.getAll());
             modelAndView.addObject("formBean", inventory);
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.NotSaved"));
+
+/*            bindingResult
+                    .rejectValue("model", messageByLocaleService.getMessage("inventory.validate.model"),
+                            "Bu alan boş olmamalı.");*/
+
             return modelAndView;
+            //modelAndView.setViewName("redirect:/inventory/update/"+inventory.getInventoryId());
 
         } else {
             inventoryService.saveOrUpdate(inventory);
 
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.saved"));
+
             modelAndView.addObject("formBean", new AppUser());
 
             LOGGER.info("Updated the information of the todo entry: {}", inventory);
 
+            //modelAndView.setViewName("inventory/inventoryList");
+            //modelAndView.setViewName("redirect:/inventory/update/"+inventory.getInventoryId());
+            modelAndView.setViewName("redirect:/inventory/list");
         }
+
+        return modelAndView;
+    }
+
+
+    @RequestMapping(value = "/delete/{inventoryId}", method = RequestMethod.GET)
+    public ModelAndView delete(@PathVariable("inventoryId") Long inventoryId, HttpServletRequest request) {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        //Long inventoryId1 = Long.parseLong(request.getParameter("inventoryId"));
+
+        inventoryService.remove(inventoryService.get(inventoryId));
 
         modelAndView.setViewName("redirect:/inventory/list");
 
         return modelAndView;
     }
 
-
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public ModelAndView delete(HttpServletRequest request) {
-
-        ModelAndView modelAndView = new ModelAndView();
-
-        Long inventoryId = Long.parseLong(request.getParameter("inventoryId"));
-
-        inventoryService.remove(inventoryService.get(inventoryId));
-
-        modelAndView.setViewName("redirect:/");
-
-        return modelAndView;
-    }
 
 }
 

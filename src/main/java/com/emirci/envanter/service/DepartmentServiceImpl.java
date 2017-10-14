@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service("departmentService")
 public class DepartmentServiceImpl extends GenericServiceImpl<Department, Long> implements DepartmentService {
 
@@ -42,8 +40,5 @@ public class DepartmentServiceImpl extends GenericServiceImpl<Department, Long> 
         return departmentDao.getDepartment(id);
     }
 
-    @Override
-    public void saveOrUpdateList(List<Department> entity) {
 
-    }
 }

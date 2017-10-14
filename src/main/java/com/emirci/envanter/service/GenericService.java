@@ -10,7 +10,7 @@ public interface GenericService<E, K> {
 
     public void saveOrUpdate(E entity);
 
-    public void saveOrUpdateList(List<E> entity);
+    public void saveOrUpdate(List<E> entityes);
 
     public List<E> getAll();
 

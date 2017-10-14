@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-/**
- * Created by serdaremirci on 9/20/17.
- */
 @Entity
 @Table(name = "XAttDepartment")
 public class Department implements Serializable {
@@ -20,10 +17,10 @@ public class Department implements Serializable {
     @Column(name = "AuthorizedUserId")
     private String authorizedUserId;
 
-    @Column(name = "DepartmentName")
+    @Column(name = "DepartmentName", unique = true, nullable = false)
     private String departmentName;
 
-    @OneToMany(mappedBy = "departments", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "depar")
     @PrimaryKeyJoinColumn
     private Set<Inventory> inventoryes;
 

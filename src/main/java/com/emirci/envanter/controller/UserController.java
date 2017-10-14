@@ -2,7 +2,9 @@ package com.emirci.envanter.controller;
 
 
 import com.emirci.envanter.model.AppUser;
+import com.emirci.envanter.model.Role;
 import com.emirci.envanter.service.MessageByLocaleServiceImpl;
+import com.emirci.envanter.service.RoleService;
 import com.emirci.envanter.service.SecurityService;
 import com.emirci.envanter.service.UserService;
 import com.emirci.envanter.validator.UserValidator;
@@ -19,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
 
 /**
  * Created by serdaremirci on 9/19/17.
@@ -29,6 +33,9 @@ public class UserController {
 
     @Autowired(required = true)
     private UserService userService;
+
+    @Autowired(required = true)
+    private RoleService roleService;
 
     @Autowired
     private SecurityService securityService;
@@ -84,12 +91,16 @@ public class UserController {
                     .rejectValue("email", messageByLocaleService.getMessage("form.validate.duplicate.username"),
                             "There is already a user registered with the email provided");
         }
+
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("formBean", user);
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.NotSaved"));
             modelAndView.setViewName("registration");
 
         } else {
+            Role userRole = roleService.findRoleByRole("USER");
+            user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+
             userService.saveUser(user);
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.saved"));
             modelAndView.addObject("formBean", new AppUser());

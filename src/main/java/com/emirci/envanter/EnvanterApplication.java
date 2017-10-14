@@ -112,6 +112,7 @@ public class EnvanterApplication extends SpringBootServletInitializer implements
     }
 
     @Bean
+
     @Autowired
     public LocalValidatorFactoryBean validatorFactoryBean(MessageSource messageSource) {
         LocalValidatorFactoryBean lvfb = new LocalValidatorFactoryBean();

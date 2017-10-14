@@ -17,10 +17,10 @@ public class Trademark implements Serializable {
     @Column(name = "TrademarkId", unique = true, nullable = false)
     private Long trademarkId;
 
-    @Column(name = "Trademark", length = 50)
+    @Column(name = "Trademark", unique = true, nullable = false)
     private String trademark;
 
-    @OneToMany(mappedBy = "trademarks", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trade")
     @PrimaryKeyJoinColumn
     private Set<Inventory> inventoryes;
 

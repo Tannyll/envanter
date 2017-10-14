@@ -4,10 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
-
-/**
- * Created by serdaremirci on 9/20/17.
- */
 @Entity
 //@Table(name = "XAttInventoryType", uniqueConstraints = @UniqueConstraint(columnNames = "InventoryTypeId", name = "PK_Inventory"))
 @Table(name = "XAttInventoryType")
@@ -19,10 +15,10 @@ public class InventoryType implements Serializable {
     @Column(name = "InventoryTypeId", unique = true, nullable = false)
     private Long inventoryTypeId;
 
-    @Column(name = "InventoryType")
+    @Column(name = "InventoryType", unique = true, nullable = false)
     private String inventoryType;
 
-    @OneToMany(mappedBy = "inventoryTypes", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "invtyp")
     @PrimaryKeyJoinColumn
     private Set<Inventory> inventoryes;
 

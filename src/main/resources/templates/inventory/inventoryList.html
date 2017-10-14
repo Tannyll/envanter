@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:s="http://www.springframework.org/tags">
+<html xmlns:th="http://www.thymeleaf.org"
+>
 <head>
+    <title th:text="#{title.application}"></title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
@@ -10,67 +11,23 @@
 
 <div class="container">
 
-    <div class="starter-template">
-        <p:inputText title="Primefaces panel"></p:inputText>
-        <br/>
-        <p:panel header="JSF 2.2">
-            #{InventoryBean.inventoryList}
-            <p:dataGrid>
-                <p:column>
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Inventory System</div>
+        <div class="panel-body">
+            <p>Envnter sisteminde yer alan tüm elektronik cihazların kayıt bilgilerini ve cihazlar hakkında detaylı
+                bilgiler sunabilen ekranlar ile desteklenmektedir.</p>
+        </div>
 
-                </p:column>
-            </p:dataGrid>
-        </p:panel>
-        <br/>
-        <p:inputText title="Primefaces Form"></p:inputText>
-        <br/>
-        <h1>PrimeFaces TAG</h1>
-
-        <p:repeat value="${inventoryList}" var="itm">
-            ${itm.inventoryId}
-        </p:repeat>
-        <br/>
-        <p:inputText title="Primefaces dataTable"></p:inputText>
-        <br/>
-        <p:dataTable var="dta" value="#{inventoryList}"
-                     emptyMessage="No customers found">
-
-            <p:column headerText="Id" sortBy="#{dta.inventoryId}">
-                <h:outputText value="#{dt.inventoryId}"/>
-            </p:column>
-
-            <p:column headerText="First Name" sortBy="#{dta.model}">
-                <h:outputText value="#{dta.model}"/>
-            </p:column>
-
-            <p:column headerText="Last Name" sortBy="#{dta.feature}">
-                <h:outputText value="#{dta.feature}"/>
-            </p:column>
-
-        </p:dataTable>
-        <br/>
-        <h:form>
-            <p:inputText title="Name"></p:inputText>
-
-        </h:form>
-        <hr/>
-        <h1>Spring MVC Web HTML</h1>
-        <h:inputText value="sdsdasf" id="asdsa" title="sadfdsf sdf" label="sad"/>
+        <!-- Table -->
 
 
-        <h1>Spring TAG</h1>
-
-        <s:message code="app.name"/>
-        <p:inputText type="email" id="email" placeholder="your@email.com" value=""/>
-
-
-        <h1>Thymeleaf TAG11</h1>
-
-        <span th:text="'Name : '+${message}"></span>
-        <br/>
-        <table class="table table-bordered">
+        <table class="table">
             <thead>
-            <tr class="btn-success">
+            <tr>
+                <th><a href="#" th:href="@{/inventory/new}"><span
+                        class="glyphicon glyphicon-plus"></span></a></th>
+                <th>#</th>
                 <th>#</th>
                 <th>Model</th>
                 <th>Trademark</th>
@@ -81,23 +38,25 @@
             </thead>
             <tbody class="table table-bordered table-striped">
             <tr th:each="itm : ${inventoryList}">
+                <td>
+                    <a href="#" th:href="@{/inventory/delete/{inventoryId}(inventoryId=${itm.inventoryId})}"><span
+                            class="glyphicon glyphicon-remove"></span></a>
+                </td>
                 <td align="center">
                     <a th:href="@{/inventory/update/{id}(id=${itm.inventoryId})}"><span
                             class="glyphicon glyphicon-edit"></span></a>
                 </td>
+                <td th:text="${itm.inventoryId}"></td>
                 <td th:text="${itm.model}">model</td>
-                <td th:text="${itm.trademarks!=null}?${itm.trademarks.trademark}"></td>
-                <td th:text="*{itm.departments!=null}?${itm.departments.departmentName}"></td>
-                <td th:text="*{itm.inventoryTypes!=null}?${itm.inventoryTypes.inventoryType}"></td>
+                <td th:text="${itm.trade!=null}?${itm.trade.trademark}"></td>
+                <td th:text="*{itm.depar!=null}?${itm.depar.departmentName}"></td>
+                <td th:text="*{itm.invtyp!=null}?${itm.invtyp.inventoryType}"></td>
                 <td th:text="${itm.feature}"></td>
 
             </tr>
             </tbody>
         </table>
-
-
     </div>
-
 </div>
 <!-- /.container -->
 

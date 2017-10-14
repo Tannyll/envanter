@@ -33,10 +33,8 @@ public abstract class GenericServiceImpl<E, K> implements GenericService<E, K> {
 
     @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void saveOrUpdateList(List<E> entity) {
-        for (int i = 1; i < entity.size(); i++) {
-            genericDao.saveOrUpdate(entity.get(i));
-        }
+    public void saveOrUpdate(List<E> entity) {
+        genericDao.saveOrUpdate(entity);
 
     }
 

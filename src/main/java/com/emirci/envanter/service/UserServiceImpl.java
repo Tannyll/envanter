@@ -4,15 +4,10 @@ import com.emirci.envanter.dao.GenericDao;
 import com.emirci.envanter.dao.RoleDao;
 import com.emirci.envanter.dao.UserDao;
 import com.emirci.envanter.model.AppUser;
-import com.emirci.envanter.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl extends GenericServiceImpl<AppUser, Integer> implements UserService {
@@ -42,13 +37,10 @@ public class UserServiceImpl extends GenericServiceImpl<AppUser, Integer> implem
     public void saveUser(AppUser user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-        Role userRole = roleDao.findByRole("USER");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+/*        Role userRole = roleDao.findByRole("USER");
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));*/
         userDao.saveOrUpdate(user);
     }
 
-    @Override
-    public void saveOrUpdateList(List<AppUser> entity) {
 
-    }
 }

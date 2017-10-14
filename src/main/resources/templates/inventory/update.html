@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title th:text="#{app.name}"></title>
+    <title th:text="#{title.application}"></title>
     <div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
@@ -29,54 +29,45 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
         <div th:class="row">
             <div class="form-group col-md-4">
 
-                <select class="form-control" name="inventoryTypeId">
+                <select class="form-control" name="invtyp.inventoryTypeId">
                     <option selected="selected" value="" th:text="#{form.button.select}"></option>
                     <option
                             th:each="type : ${formBeanInventoryType}"
                             th:value="${type.inventoryTypeId}"
-                            th:selected="(${type.inventoryTypeId} == *{inventoryTypes.inventoryTypeId})"
-                            th:text="${type.inventoryType}"
-                    >
+                            th:attr="inventoryType=${type.inventoryType}"
+                            th:selected="(${type.inventoryTypeId} == *{invtyp.inventoryTypeId} ? *{invtyp.inventoryTypeId})"
+                            th:text="(${type.inventoryType})">
                     </option>
-
-
                 </select>
-
-                <label th:if="${#fields.hasErrors('inventoryTypes.inventoryTypeId')}" th:errors="*{inventoryTypes}"
+                <label th:if="${#fields.hasErrors('invtyp.inventoryTypeId')}" th:errors="*{invtyp}"
                        class="validation-message"></label>
             </div>
 
             <div class="form-group col-md-4">
-                <select class="form-control" name="trademarkId">
+                <select class="form-control" name="trade.trademarkId">
                     <option selected="selected" value="" th:text="#{form.button.select}"></option>
                     <option
                             th:each="type : ${formBeanTrademark}"
                             th:value="${type.trademarkId}"
-                            th:selected="(${type.trademarkId} == *{trademarks.trademarkId})"
+                            th:selected="(${type.trademarkId} == *{trade.trademarkId} ? *{trade.trademarkId})"
                             th:text="${type.trademark}">
                     </option>
                 </select>
-
-                <label th:if="${#fields.hasErrors('trademarks.trademarkId')}" th:errors="*{trademarks}"
+                <label th:if="${#fields.hasErrors('trade.trademarkId')}" th:errors="*{trade}"
                        class="validation-message"></label>
-
             </div>
             <div class="form-group col-md-4">
-                <select class="form-control" data-th-name="departmentId">
+                <select class="form-control" data-th-name="depar.departmentId">
                     <option selected="selected" value="" th:text="#{form.button.select}"></option>
                     <option
                             th:each="type : ${formBeanDepartment}"
                             th:value="${type.departmentId}"
-                            th:attr="type_departmentId=${type.departmentId}, departments_departmentId=*{departments.departmentId},
-                            showselected=(${type.departmentId} == *{departments.departmentId})"
-                            th:selected="(${type.departmentId} == *{departments.departmentId})"
-                            th:readonly="(${type.departmentId} == *{departments.departmentId})"
-                            th:text="${type.departmentName}"
-                    />
-
+                            th:selected="(${type.departmentId} == *{depar.departmentId} ? *{depar.departmentId})"
+                            th:readonly="(${type.departmentId} == *{depar.departmentId} ? *{depar.departmentId})"
+                            th:text="${type.departmentName}">
+                    </option>
                 </select>
-
-                <label th:if="${#fields.hasErrors('departments.departmentId')}" th:errors="*{departments.departmentId}"
+                <label th:if="${#fields.hasErrors('depar.departmentId')}" th:errors="*{depar}"
                        class="validation-message"></label>
             </div>
         </div>
@@ -84,8 +75,6 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
 
         <div th:class="row">
             <div class="form-group col-md-4">
-
-
                 <input type="text" th:field="*{usesUser}" th:placeholder="#{inventory.field.usesUser}"
                        class="form-control"/>
                 <label th:if="${#fields.hasErrors('usesUser')}" th:errors="*{usesUser}"
@@ -93,9 +82,7 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
 
             </div>
             <div class="form-group col-md-4">
-
-
-                <input type="text" th:field="*{model}" th:placeholder="#{inventory.field.model}"
+                <input type="text" th:field="*{model}" autofocus="autofocus" th:placeholder="#{inventory.field.model}"
                        class="form-control"/>
                 <label th:if="${#fields.hasErrors('model')}" th:errors="*{model}"
                        class="validation-message"></label>
@@ -114,8 +101,7 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
         </div>
 
         <div th:class="row">
-            <div class="form-group col-md-12">T
-
+            <div class="form-group col-md-12">
                 <textarea th:rows="5" th:field="*{feature}" th:placeholder="#{inventory.field.feature}"
                           class="form-control"/>
 
@@ -161,28 +147,22 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
                         th:text="#{form.button.save}"></button>
             </div>
             <div class="form-group col-md-4">
-                <button type="submit" class="btn btn-warning btn-block"
-                        th:text="#{form.button.delete}"></button>
+                <a href="#" th:href="@{/inventory/list}" th:text="#{form.button.cancel}">Vazgeç</a>
             </div>
             <div class="form-group col-md-4">
-                <button type="submit" class="btn btn-warning btn-block"
-                        th:text="#{form.button.cancel}"></button>
+                <a href="#" th:href="@{/inventory/delete/{inventoryId}(inventoryId=*{inventoryId})}"
+                   th:text="#{form.button.delete}"></a>
             </div>
         </div>
 
         <div th:class="row">
             <div class="col-sm-12">
                 <div class="row" th:unless="${msg == null}">
-                    <div class="alert alert-success" role="alert">
+                    <div th:classappend="${msg}? alert-danger : alert-success" class="alert" role="alert">
                         <span th:utext="${msg}"></span>
                     </div>
                 </div>
-                <br/>
-                <div class="row" th:if="${msg}">
-                    <div class="alert alert-danger" role="alert">
-                        <span th:utext="${msg}"></span>
-                    </div>
-                </div>
+
             </div>
         </div>
     </form>

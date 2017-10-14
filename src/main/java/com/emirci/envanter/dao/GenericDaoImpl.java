@@ -62,8 +62,17 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
     }
 
     @Override
+    public void saveOrUpdate(List<E> entityes) {
+        for (int i = 0; i < entityes.size(); i++) {
+
+            currentSession().saveOrUpdate(entityes.get(i));
+
+        }
+    }
+
+    @Override
     public void update(E entity) {
-        currentSession().saveOrUpdate(entity);
+        currentSession().update(entity);
     }
 
     @Override
@@ -80,5 +89,11 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
     public List<E> getAll() {
         //return currentSession().createQuery(String.format("select e from %s e ", daoType.getClass().getSimpleName())).list();
         return currentSession().createQuery("FROM " + daoType.getName()).list();
+    }
+
+    @Override
+    public List<E> get(String queryString) {
+
+        return currentSession().createQuery(queryString).list();
     }
 }

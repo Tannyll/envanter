@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service("trademarkService")
 public class TrademarkServiceImpl extends GenericServiceImpl<Trademark, Long> implements TrademarkService {
 
@@ -42,8 +40,5 @@ public class TrademarkServiceImpl extends GenericServiceImpl<Trademark, Long> im
         return trademarkDao.getTrademark(id);
     }
 
-    @Override
-    public void saveOrUpdateList(List<Trademark> entity) {
 
-    }
 }

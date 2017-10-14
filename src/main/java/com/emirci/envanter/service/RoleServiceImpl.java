@@ -2,17 +2,10 @@ package com.emirci.envanter.service;
 
 import com.emirci.envanter.dao.GenericDao;
 import com.emirci.envanter.dao.RoleDao;
-import com.emirci.envanter.dao.UserDao;
-import com.emirci.envanter.model.Role;
 import com.emirci.envanter.model.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 @Service("roleService")
 public class RoleServiceImpl extends GenericServiceImpl<Role, Integer> implements RoleService {
@@ -30,11 +23,10 @@ public class RoleServiceImpl extends GenericServiceImpl<Role, Integer> implement
 
     @Override
     public Role findRoleByRole(String role) {
-        return roleDao.findByRole(role);
-    }
+        return (Role) roleDao.get(String.format("SELECT e FROM Role e WHERE e.role = '%s' ", role)).get(0);
 
-    @Override
-    public void saveOrUpdateList(List<Role> entity) {
 
     }
+
+
 }

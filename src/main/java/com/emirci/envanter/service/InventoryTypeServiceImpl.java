@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service("inventoryTypeService")
 public class InventoryTypeServiceImpl extends GenericServiceImpl<InventoryType, Long> implements InventoryTypeService {
 
@@ -42,8 +40,4 @@ public class InventoryTypeServiceImpl extends GenericServiceImpl<InventoryType, 
         return inventoryTypeDao.getInventoryType(id);
     }
 
-    @Override
-    public void saveOrUpdateList(List<InventoryType> entity) {
-
-    }
 }

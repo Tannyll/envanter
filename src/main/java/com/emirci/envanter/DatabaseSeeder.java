@@ -1,9 +1,6 @@
 package com.emirci.envanter;
 
-import com.emirci.envanter.model.Department;
-import com.emirci.envanter.model.Inventory;
-import com.emirci.envanter.model.InventoryType;
-import com.emirci.envanter.model.Trademark;
+import com.emirci.envanter.model.*;
 import com.emirci.envanter.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +14,10 @@ import java.util.*;
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
 
-    //private VehicleUsageService service = VehicleUsageService.getInstance();
     private static final Logger logger = LoggerFactory.getLogger(EnvanterApplication.class);
 
     @Autowired
-    private UserService userService;
+    private RoleService roleService;
     @Autowired
     private InventoryService inventoryService;
     @Autowired
@@ -39,7 +35,7 @@ public class DatabaseSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Random r = new Random(0);
+        Random r = new Random(7);
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy")
                 .withLocale(Locale.US);
@@ -53,38 +49,35 @@ public class DatabaseSeeder implements CommandLineRunner {
         if (departmentService.getAll().size() == 0)
             getDepartmentSample();
 
-
-/*        if (userService.findUserByEmail("serdar@emirci.com") == null)
-            getUser();*/
-
+        if (roleService.getAll().size() == 0)
+            getRoleSample();
 
         int barcode = r.nextInt(160 * 150 + 365 * 36501);
 
-        //Department department = departmentRepository.findOne((long) 4);
-        //Trademark trademark = trademarkRepository.findOne((long) 4);
-        //InventoryType inventoryType = inventoryTypeRepository.findOne((long) 4);
+        Department department = departmentService.get((long) r.nextInt(5));
+        Trademark trademark = trademarkService.get((long) r.nextInt(4));
+        InventoryType inventoryType = inventoryTypeService.get((long) r.nextInt(5));
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 2; i++) {
 
             Inventory inventory = new Inventory();
 
-            //inventory.setDepartments(department);
-            //inventory.setTrademarks(trademark);
-            //inventory.setInventoryTypes(inventoryType);
+            inventory.setDepar(department);
+            inventory.setTrade(trademark);
+            inventory.setInvtyp(inventoryType);
 
             inventory.setUserId("2");
             inventory.setInsertUserId("15002f34-c877-42de-b8dc-334b1195cd1c");
             inventory.setUsesUser("Serdar EMIRCI");
             inventory.setInsertDate(Calendar.getInstance().getTime());
             inventory.setFeature("i5-2500 CPU @ 3.20GHz");
-            inventory.setModel("DE 323");
+            inventory.setModel("ZT 320");
             inventory.setInvoiceNumber(Integer.toString(barcode));
             inventory.setInvoiceDate(Calendar.getInstance().getTime());
-            inventory.setPrice(1.234);
+            inventory.setPrice(r.nextDouble());
             inventory.setBarcode(Integer.toString(barcode));
 
-            inventoryService.update(inventory);
-
+            inventoryService.saveOrUpdate(inventory);
 
         }
 
@@ -97,20 +90,17 @@ public class DatabaseSeeder implements CommandLineRunner {
     private void getDepartmentSample() {
         List<Department> list = new ArrayList<>();
 
-        list.add(new Department("Bilgi Teknolojileri"));
         list.add(new Department("İnsan Kaynakları"));
         list.add(new Department("Satınalma"));
         list.add(new Department("Müteri Hizmetleri"));
         list.add(new Department("Muhasebe"));
         list.add(new Department("Proje Tasarım"));
-        list.add(new Department("Montaj"));
         list.add(new Department("Yönetim"));
         list.add(new Department("Montaj"));
         list.add(new Department("Üretim"));
         list.add(new Department("Genel"));
-
-        //departmentService.update(list);
-
+        list.add(new Department("Bilgi Teknolojileri"));
+        departmentService.saveOrUpdate(list);
 
         for (Department department : departmentService.getAll()) {
             logger.info(department.toString());
@@ -133,9 +123,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         list.add(new Trademark("HP"));
         list.add(new Trademark("Samsung"));
         list.add(new Trademark("Beko"));
-
-        trademarkService.saveOrUpdateList(list);
-        //trademarkRepository.save(list);
+        trademarkService.saveOrUpdate(list);
 
         for (Trademark trademark : trademarkService.getAll()) {
             logger.info(trademark.toString());
@@ -147,17 +135,31 @@ public class DatabaseSeeder implements CommandLineRunner {
         List<InventoryType> list = new ArrayList<>();
 
         list.add(new InventoryType("Masaüstü Bilgisayar"));
-        list.add(new InventoryType("Taşnabilir Bilgisayar"));
+        list.add(new InventoryType("Taşınabilir Bilgisayar"));
         list.add(new InventoryType("Yazıcı"));
         list.add(new InventoryType("Tablet Bilgisayar"));
         list.add(new InventoryType("Monitör"));
         list.add(new InventoryType("Fotoğraf Makinası"));
         list.add(new InventoryType("Video Kamera"));
-
-        // inventoryTypeRepository.save(list);
+        inventoryTypeService.saveOrUpdate(list);
 
         for (InventoryType inventoryType : inventoryTypeService.getAll()) {
             logger.info(inventoryType.toString());
         }
     }
+
+    private void getRoleSample() {
+        List<Role> list = new ArrayList<>();
+
+        list.add(new Role("USER"));
+        list.add(new Role("ADMIN"));
+        list.add(new Role("GUEST"));
+        roleService.saveOrUpdate(list);
+
+        for (Role role : roleService.getAll()) {
+            logger.info(role.toString());
+        }
+    }
+
+
 }
