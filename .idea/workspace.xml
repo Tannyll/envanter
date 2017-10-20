@@ -1,57 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="873b2932-aac2-418d-9755-0761e83bb607" name="Default" comment="October 20 Development.">
+    <list default="true" id="873b2932-aac2-418d-9755-0761e83bb607" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/bean/InventoryBean.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/bean/InventoryBean.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/DateFormatter.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/DateFormatter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/I18nConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/I18nConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/Initializer.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/Initializer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/WebAppInitializer.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/WebAppInitializer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/WebMvcConfigurerAdapter.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/config/WebMvcConfigurerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/controller/HomeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/controller/HomeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/controller/InventoryController.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/controller/InventoryController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/controller/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/controller/UserController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/GenericDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/GenericDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/GenericDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/GenericDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/TrademarkDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/TrademarkDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/TrademarkDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/dao/TrademarkDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/AppUser.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/AppUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Department.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Department.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Inventory.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Inventory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/InventoryType.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/InventoryType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Role.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Role.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Trademark.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/model/Trademark.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/service/MessageByLocaleServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/service/MessageByLocaleServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/service/SecurityServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/service/SecurityServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/service/UserService.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/service/UserService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/validator/UserValidator.java" afterPath="$PROJECT_DIR$/src/main/java/com/emirci/envanter/validator/UserValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/WEB-INF/faces-config.xml" afterPath="$PROJECT_DIR$/src/main/resources/WEB-INF/faces-config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application-dev.properties" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/locale/Messages.properties" afterPath="$PROJECT_DIR$/src/main/resources/locale/Messages.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/locale/Messages_en_US.properties" afterPath="$PROJECT_DIR$/src/main/resources/locale/Messages_en_US.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/locale/Messages_es_ES.properties" afterPath="$PROJECT_DIR$/src/main/resources/locale/Messages_es_ES.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/locale/Messages_tr_TR.properties" afterPath="$PROJECT_DIR$/src/main/resources/locale/Messages_tr_TR.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/css/main.css" afterPath="$PROJECT_DIR$/src/main/resources/static/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/static/index.html" afterPath="$PROJECT_DIR$/src/main/resources/static/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/HelloWorldPage.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/HelloWorldPage.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/error/403.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/error/403.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/Layout.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/Layout.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/alert.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/alert.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/footer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/fragments/header.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/greeting.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/greeting.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/hello.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/hello.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventoryList.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory/inventoryList.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/inventory/update.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/inventory/update.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/registration.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/registration.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/welcome.xhtml" afterPath="$PROJECT_DIR$/src/main/resources/templates/welcome.xhtml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/web.xml" afterPath="$PROJECT_DIR$/src/main/resources/web.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/emirci/envanter/EnvanterApplicationTests.java" afterPath="$PROJECT_DIR$/src/test/java/com/emirci/envanter/EnvanterApplicationTests.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -135,8 +86,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Ser" />
         <option value="Serdar EMIRCI &lt;serdar@emirci.com&gt;" />
+        <option value="Ser" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -1191,7 +1142,7 @@
       <workItem from="1507966084342" duration="8812000" />
       <workItem from="1508477518184" duration="1679000" />
       <workItem from="1508479280025" duration="513000" />
-      <workItem from="1508479806998" duration="386000" />
+      <workItem from="1508479806998" duration="420000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1507539106847</created>
@@ -1319,11 +1270,18 @@
       <option name="project" value="LOCAL" />
       <updated>1507978477836</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="October 20 Development.">
+      <created>1508480221991</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1508480221991</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="324282000" />
+    <option name="totallyTimeSpent" value="324316000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1356,8 +1314,8 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31038135" sideWeight="0.4924623" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3209746" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31038135" sideWeight="0.4924623" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3209746" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12394068" sideWeight="0.4964824" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1917373" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.346856" sideWeight="0.491481" order="0" side_tool="false" content_ui="combo" />
