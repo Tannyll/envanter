@@ -4,7 +4,6 @@ import com.emirci.envanter.model.Trademark;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
-import java.util.List;
 
 /**
  * Created by serdaremirci on 10/10/17.

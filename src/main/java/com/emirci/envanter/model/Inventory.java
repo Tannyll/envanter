@@ -68,6 +68,24 @@ public class Inventory implements Serializable {
     @Column(name = "VERSION")
     private int version;
 
+    public Inventory() {
+
+
+    }
+
+    public Inventory(String userId, String insertUserId, String usesUser, Date insertDate, String feature, String model, String invoiceNumber, Date invoiceDate, double price, String barcode) {
+        this.userId = userId;
+        this.insertUserId = insertUserId;
+        this.usesUser = usesUser;
+        this.insertDate = insertDate;
+        this.feature = feature;
+        this.model = model;
+        this.invoiceNumber = invoiceNumber;
+        this.invoiceDate = invoiceDate;
+        this.price = price;
+        this.barcode = barcode;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -190,25 +208,6 @@ public class Inventory implements Serializable {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public Inventory() {
-
-
-    }
-
-
-    public Inventory(String userId, String insertUserId, String usesUser, Date insertDate, String feature, String model, String invoiceNumber, Date invoiceDate, double price, String barcode) {
-        this.userId = userId;
-        this.insertUserId = insertUserId;
-        this.usesUser = usesUser;
-        this.insertDate = insertDate;
-        this.feature = feature;
-        this.model = model;
-        this.invoiceNumber = invoiceNumber;
-        this.invoiceDate = invoiceDate;
-        this.price = price;
-        this.barcode = barcode;
     }
 
     @Override

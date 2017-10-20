@@ -15,13 +15,11 @@
         <!-- Default panel contents -->
         <div class="panel-heading">Inventory System</div>
         <div class="panel-body">
-            <p>Envnter sisteminde yer alan tüm elektronik cihazların kayıt bilgilerini ve cihazlar hakkında detaylı
+            <p>Envanter sisteminde yer alan tüm elektronik cihazların kayıt bilgilerini ve cihazlar hakkında detaylı
                 bilgiler sunabilen ekranlar ile desteklenmektedir.</p>
         </div>
 
         <!-- Table -->
-
-
         <table class="table">
             <thead>
             <tr>
@@ -29,11 +27,11 @@
                         class="glyphicon glyphicon-plus"></span></a></th>
                 <th>#</th>
                 <th>#</th>
-                <th>Model</th>
-                <th>Trademark</th>
-                <th>Department</th>
-                <th>Type</th>
-                <th>Özellikler</th>
+                <th th:text="#{inventory.field.model}"></th>
+                <th th:text="#{inventory.field.trademarks}"></th>
+                <th th:text="#{inventory.field.department}"></th>
+                <th th:text="#{inventory.field.inventoryTypes}"></th>
+                <th th:text="#{inventory.field.feature}"></th>
             </tr>
             </thead>
             <tbody class="table table-bordered table-striped">
@@ -52,7 +50,6 @@
                 <td th:text="*{itm.depar!=null}?${itm.depar.departmentName}"></td>
                 <td th:text="*{itm.invtyp!=null}?${itm.invtyp.inventoryType}"></td>
                 <td th:text="${itm.feature}"></td>
-
             </tr>
             </tbody>
         </table>

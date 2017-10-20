@@ -1,7 +1,7 @@
 package com.emirci.envanter.validator;
 
-import com.emirci.envanter.service.UserService;
 import com.emirci.envanter.model.AppUser;
+import com.emirci.envanter.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -54,7 +54,7 @@ public class UserValidator implements Validator {
             errors.rejectValue("password", "form.validate.size.password");
         }
 
-       if (!user.getPassword().equals(user.getPassword())) {
+        if (!user.getPassword().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "form.validate.passwordConfirm");
         }
 

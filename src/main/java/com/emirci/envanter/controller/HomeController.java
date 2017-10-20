@@ -58,7 +58,7 @@ public class HomeController extends AbstractController {
     @RequestMapping(value = {"/welcome"})
     public String welcome(@RequestHeader("Accept-Language") Locale locale) {
 
-        String msg =  messageByLocaleService.getMessage("welcome");
+        String msg = messageByLocaleService.getMessage("welcome");
 
         return "welcome";
     }

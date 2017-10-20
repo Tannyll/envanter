@@ -5,7 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Description;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.LocaleResolver;
@@ -31,8 +30,8 @@ public class WebMvcConfigurerAdapter extends org.springframework.web.servlet.con
     private static final String[] CLASSPATH_RESOURCE_LOCATIONS = {
             "classpath:/META-INF/resources/", "classpath:/resources/",
             "classpath:/static/", "classpath:/public/", "/static/css/**", "/static/js/**", "/static/img/**", "/static/font/**"};
-    private ApplicationContext applicationContext;
     private final String PARAM_LANGUAGE = "lang";
+    private ApplicationContext applicationContext;
 
 
     public WebMvcConfigurerAdapter() {
@@ -71,7 +70,8 @@ public class WebMvcConfigurerAdapter extends org.springframework.web.servlet.con
     }
 
 
-    @Bean public ViewResolver viewResolver() {
+    @Bean
+    public ViewResolver viewResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode("HTML5");
         templateResolver.setName("Thy Template");
@@ -84,6 +84,7 @@ public class WebMvcConfigurerAdapter extends org.springframework.web.servlet.con
         viewResolver.setTemplateEngine(engine);
         return viewResolver;
     }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 

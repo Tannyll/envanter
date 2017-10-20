@@ -1,10 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>#{$title.application}</title>
 </head>
@@ -12,7 +8,7 @@
 <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 <h1>#{greeting}</h1>
 <h1>
-   #{Messages['title.application']}
+    #{Messages['title.application']}
 </h1>
 HelloWorldPage
 

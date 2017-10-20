@@ -3,11 +3,11 @@ package com.emirci.envanter.bean;
 import com.emirci.envanter.model.Inventory;
 import com.emirci.envanter.service.InventoryService;
 
-import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import java.util.List;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by serdaremirci on 9/25/17.
@@ -17,11 +17,6 @@ import java.io.Serializable;
 public class InventoryBean implements Serializable {
 
     private InventoryService service;
-
-    public void setInventoryList(List<Inventory> inventoryList) {
-        this.inventoryList = inventoryList;
-    }
-
     private List<Inventory> inventoryList;
 
     public InventoryBean() {
@@ -32,8 +27,12 @@ public class InventoryBean implements Serializable {
         return inventoryList;
     }
 
+    public void setInventoryList(List<Inventory> inventoryList) {
+        this.inventoryList = inventoryList;
+    }
+
     @PostConstruct
-    public void Init(){
+    public void Init() {
 
         inventoryList = service.getAll();
 

@@ -2,8 +2,6 @@ package com.emirci.envanter.dao;
 
 import com.emirci.envanter.model.Trademark;
 
-import java.util.List;
-
 
 public interface TrademarkDao extends GenericDao<Trademark, Long> {
 

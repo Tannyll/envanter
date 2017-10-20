@@ -31,27 +31,20 @@ import java.util.Date;
 public class InventoryController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InventoryController.class);
-
-    @Autowired(required = true)
-    private InventoryValidator inventoryValidator;
-
-    @Autowired(required = true)
-    private InventoryService inventoryService;
-
-    @Autowired
-    private DepartmentService departmentService;
-
-    @Autowired
-    private InventoryTypeService inventoryTypeService;
-
-    @Autowired
-    private TrademarkService trademarkService;
-
-    @Value("${app.name:test}")
-    private String message = "message";
-
     @Inject
     MessageByLocaleServiceImpl messageByLocaleService;
+    @Autowired(required = true)
+    private InventoryValidator inventoryValidator;
+    @Autowired(required = true)
+    private InventoryService inventoryService;
+    @Autowired
+    private DepartmentService departmentService;
+    @Autowired
+    private InventoryTypeService inventoryTypeService;
+    @Autowired
+    private TrademarkService trademarkService;
+    @Value("${app.name:test}")
+    private String message = "message";
 
     public InventoryController() {
 

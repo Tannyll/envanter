@@ -20,18 +20,9 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
     //private static final Logger LOGGER = LoggerFactory.getLogger(GenericDaoImpl.class);
 
 
+    protected Class<? extends E> daoType;
     @Autowired
     private SessionFactory _sessionFactory;
-
-
-    protected Session currentSession() {
-        //_sessionFactory.openSession();
-        return _sessionFactory.getCurrentSession();
-
-    }
-
-    protected Class<? extends E> daoType;
-
 
     public GenericDaoImpl() {
         Type type = getClass().getGenericSuperclass();
@@ -50,6 +41,11 @@ public abstract class GenericDaoImpl<E, K extends Serializable> implements Gener
         daoType = (Class) parametrizedType.getActualTypeArguments()[0];
     }
 
+    protected Session currentSession() {
+        //_sessionFactory.openSession();
+        return _sessionFactory.getCurrentSession();
+
+    }
 
     @Override
     public void add(E entity) {

@@ -25,6 +25,14 @@ public class Trademark implements Serializable {
     private Set<Inventory> inventoryes;
 
 
+    public Trademark() {
+
+    }
+
+    public Trademark(String trademark) {
+        this.trademark = trademark;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -51,14 +59,6 @@ public class Trademark implements Serializable {
 
     public void setInventoryes(Set<Inventory> inventoryes) {
         this.inventoryes = inventoryes;
-    }
-
-    public Trademark() {
-
-    }
-
-    public Trademark(String trademark) {
-        this.trademark = trademark;
     }
 
     @Override

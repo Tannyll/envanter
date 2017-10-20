@@ -22,6 +22,14 @@ public class InventoryType implements Serializable {
     @PrimaryKeyJoinColumn
     private Set<Inventory> inventoryes;
 
+    public InventoryType() {
+
+    }
+
+    public InventoryType(String inventoryType) {
+        this.inventoryType = inventoryType;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -48,14 +56,6 @@ public class InventoryType implements Serializable {
 
     public void setInventoryes(Set<Inventory> inventoryes) {
         this.inventoryes = inventoryes;
-    }
-
-    public InventoryType() {
-
-    }
-
-    public InventoryType(String inventoryType) {
-        this.inventoryType = inventoryType;
     }
 
     @Override

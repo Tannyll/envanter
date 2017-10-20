@@ -24,6 +24,14 @@ public class Department implements Serializable {
     @PrimaryKeyJoinColumn
     private Set<Inventory> inventoryes;
 
+    public Department() {
+
+    }
+
+    public Department(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -58,14 +66,6 @@ public class Department implements Serializable {
 
     public void setInventoryes(Set<Inventory> inventoryes) {
         this.inventoryes = inventoryes;
-    }
-
-    public Department() {
-
-    }
-
-    public Department(String departmentName) {
-        this.departmentName = departmentName;
     }
 
     @Override

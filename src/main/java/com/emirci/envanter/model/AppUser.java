@@ -1,20 +1,10 @@
 package com.emirci.envanter.model;
 
+import org.springframework.data.annotation.Transient;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-
-import org.springframework.data.annotation.Transient;
 
 @Entity
 @Table(name = "appuser")
@@ -47,6 +37,17 @@ public class AppUser implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    public AppUser() {
+
+    }
+
+    public AppUser(String email, String password, String name, String lastName) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
+    }
 
     public int getId() {
         return id;
@@ -102,17 +103,6 @@ public class AppUser implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public AppUser() {
-
-    }
-
-    public AppUser(String email, String password, String name, String lastName) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.lastName = lastName;
     }
 
     @Override

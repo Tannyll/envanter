@@ -31,20 +31,16 @@ import java.util.HashSet;
 @Controller
 public class UserController {
 
-    @Autowired(required = true)
-    private UserService userService;
-
-    @Autowired(required = true)
-    private RoleService roleService;
-
-    @Autowired
-    private SecurityService securityService;
-
-    @Autowired
-    private UserValidator userValidator;
-
     @Inject
     MessageByLocaleServiceImpl messageByLocaleService;
+    @Autowired(required = true)
+    private UserService userService;
+    @Autowired(required = true)
+    private RoleService roleService;
+    @Autowired
+    private SecurityService securityService;
+    @Autowired
+    private UserValidator userValidator;
 
     public UserController() {
 
