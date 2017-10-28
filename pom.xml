@@ -5,10 +5,10 @@
 
     <groupId>com.emirci.envanter</groupId>
     <artifactId>envanter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.5</version>
     <packaging>war</packaging>
 
-    <name>envanter</name>
+    <name>Envanter</name>
     <description>Envanter Uygulaması</description>
 
     <parent>
@@ -26,7 +26,21 @@
         <primefaces.version>6.1</primefaces.version>
         <servlet.version>3.1.0</servlet.version>
         <jsf.version>2.2.8</jsf.version>
+        <hibernate.version>5.2.10.Final</hibernate.version>
+
     </properties>
+
+    <profiles>
+        <profile>
+            <id>development</id>
+            <properties>
+                <spring.profiles.active>development</spring.profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
     <dependencies>
 
@@ -39,10 +53,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jersey</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -55,12 +76,19 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
+
+            <!--            <exclusions>
+                            <exclusion>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-starter-tomcat</artifactId>
+                            </exclusion>
+                        </exclusions>-->
+
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -70,7 +98,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -96,11 +124,12 @@
             <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>
         <!-- hot swapping, disable cache for template, enable live reload -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>false</optional>
-        </dependency>
+        <!--        <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <scope>test</scope>
+                </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -142,15 +171,6 @@
             <version>2.2</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>${primefaces.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap</artifactId>
@@ -167,19 +187,6 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!--        <dependency>
-                    <groupId>org.hsqldb</groupId>
-                    <artifactId>hsqldb</artifactId>
-                    <version>2.4.0</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.h2database</groupId>
-                    <artifactId>h2</artifactId>
-                    <version>1.4.193</version>
-                    <scope>test</scope>
-                </dependency>-->
-
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
@@ -189,23 +196,19 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.10.Final</version>
+            <version>${hibernate.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.2.10.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
-        </dependency>
+        <!--        <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-annotations</artifactId>
+                    <version>3.5.6-Final</version>
+                </dependency>-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>5.4.1.Final</version>
         </dependency>
+
 
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -225,24 +228,33 @@
             ${project.name}
         </finalName>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-
-                    <executable>false</executable>
+                    <excludeDevtools>false</excludeDevtools>
+                    <executable>true</executable>
                 </configuration>
             </plugin>
-            <!--        <plugin>
-                        <groupId>org.apache.tomcat.maven</groupId>
-                        <artifactId>tomcat-maven-plugin</artifactId>
-                        <version>2.2</version>
-                        <configuration>
-                            <url>http://172.16.101.38:8080/manager</url>
-                            <server>ws26</server>
-                            <path>/Envanter</path>
-                        </configuration>
-                    </plugin>-->
+
+            <!--            <plugin>
+                            <groupId>org.apache.tomcat.maven</groupId>
+                            <artifactId>tomcat-maven-plugin</artifactId>
+                            <version>2.2</version>
+                            <configuration>
+                                <url>http://172.16.101.38:8080/manager</url>
+                                <server>ws26</server>
+                                <path>/Envanter</path>
+                            </configuration>
+                        </plugin>-->
         </plugins>
     </build>
 

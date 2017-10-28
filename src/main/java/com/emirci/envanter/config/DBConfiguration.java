@@ -3,6 +3,7 @@ package com.emirci.envanter.config;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -12,6 +13,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -27,7 +29,9 @@ public class DBConfiguration {
     @Autowired
     private Environment env;
 
-    @Bean
+    @Bean(name = "dataSource")
+    @Primary
+    @ConfigurationProperties(prefix = "db.datasource")
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getRequiredProperty("db.driver"));
@@ -37,7 +41,7 @@ public class DBConfiguration {
         return dataSource;
     }
 
-    @Bean("sessionFactory")
+    @Bean(name = "sessionFactory")
     @Primary
     public LocalSessionFactoryBean sessionFactory() throws ClassNotFoundException {
 
@@ -59,12 +63,15 @@ public class DBConfiguration {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan("com");
-        //em.setPersistenceUnitName("notDefaultDb");
 
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(false);
+        em.setDataSource(dataSource());
+        em.setPersistenceUnitName("customPersistence");
+        em.setPackagesToScan(new String[]{"com.emirci.envanter.model"});
+
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        //HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        //vendorAdapter.setGenerateDdl(false);
+
         em.setJpaVendorAdapter(vendorAdapter);
         return em;
     }
@@ -75,7 +82,7 @@ public class DBConfiguration {
         return new HibernateTemplate(sessionFactory().getObject());
     }
 
-    @Bean
+    @Bean(name = "customTransactionManager")
     public HibernateTransactionManager transactionManager(SessionFactory sf) {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 

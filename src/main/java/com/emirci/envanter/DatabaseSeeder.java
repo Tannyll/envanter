@@ -58,7 +58,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         Trademark trademark = trademarkService.get((long) r.nextInt(4));
         InventoryType inventoryType = inventoryTypeService.get((long) r.nextInt(5));
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 0; i++) {
 
             Inventory inventory = new Inventory();
 

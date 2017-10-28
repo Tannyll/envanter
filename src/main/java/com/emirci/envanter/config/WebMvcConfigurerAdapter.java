@@ -74,9 +74,11 @@ public class WebMvcConfigurerAdapter extends org.springframework.web.servlet.con
     public ViewResolver viewResolver() {
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setTemplateMode("HTML5");
-        templateResolver.setName("Thy Template");
-        templateResolver.setPrefix("classpath:/templates/");
+        templateResolver.setName("Thymeleaf Template");
+        templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
+        templateResolver.setCacheable(false);
+
         SpringTemplateEngine engine = new SpringTemplateEngine();
         engine.setTemplateResolver(templateResolver);
 
@@ -85,18 +87,18 @@ public class WebMvcConfigurerAdapter extends org.springframework.web.servlet.con
         return viewResolver;
     }
 
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 
-        registry.addViewController("/welcome").setViewName("welcome");
-        registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/").setViewName("home");
-        registry.addViewController("/hello").setViewName("hello");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/greeting").setViewName("greeting");
-        registry.addViewController("/registration").setViewName("registration");
-
-        registry.addViewController("/HelloWorldPage").setViewName("HelloWorldPage");
+        //registry.addViewController("/welcome").setViewName("welcome");
+        //registry.addViewController("/index").setViewName("home");
+        //registry.addViewController("/").setViewName("home");
+        //registry.addViewController("/hello").setViewName("hello");
+        //registry.addViewController("/login").setViewName("login");
+        //registry.addViewController("/greeting").setViewName("greeting");
+        //registry.addViewController("/registration").setViewName("registration");
+        //registry.addViewController("/HelloWorldPage").setViewName("HelloWorldPage");
 
 
     }

@@ -19,7 +19,8 @@ https://ultraq.github.io/thymeleaf-layout-dialect/Examples.html#layouts
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form autocomplete="off" action="#" th:action="@{/registration}" th:object="${formBean}" method="post"
+            <form autocomplete="off" action="#" th:action="@{/account/registration}" th:object="${formBean}"
+                  method="post"
                   class="form-horizontal" role="form">
 
                 <h2 th:text="#{user.login.registration}"></h2>

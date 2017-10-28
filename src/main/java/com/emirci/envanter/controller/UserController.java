@@ -9,11 +9,8 @@ import com.emirci.envanter.service.SecurityService;
 import com.emirci.envanter.service.UserService;
 import com.emirci.envanter.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +26,7 @@ import java.util.HashSet;
  * Created by serdaremirci on 9/19/17.
  */
 @Controller
+@RequestMapping("/account")
 public class UserController {
 
     @Inject
@@ -48,16 +46,19 @@ public class UserController {
 
     //https://medium.com/@gustavo.ponce.ch/spring-boot-spring-mvc-spring-security-mysql-a5d8545d837d
 
-    @GetMapping("/user")
-    public String user() {
-        return "/user";
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    public ModelAndView user() {
+        ModelAndView modelAndView = new ModelAndView("account/user");
+
+        return modelAndView;
     }
 
-    @GetMapping("/login")
-    public String login() {
-        return "/login";
-    }
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView("account/login");
 
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registration() {
@@ -67,7 +68,7 @@ public class UserController {
 
         AppUser user = new AppUser();
         modelAndView.addObject("formBean", user);
-        modelAndView.setViewName("registration");
+        modelAndView.setViewName("account/registration");
         return modelAndView;
     }
 
@@ -91,7 +92,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("formBean", user);
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.NotSaved"));
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("account/registration");
 
         } else {
             Role userRole = roleService.findRoleByRole("USER");
@@ -100,20 +101,20 @@ public class UserController {
             userService.saveUser(user);
             modelAndView.addObject("msg", messageByLocaleService.getMessage("form.data.saved"));
             modelAndView.addObject("formBean", new AppUser());
-            modelAndView.setViewName("registration");
+            modelAndView.setViewName("account/registration");
 
         }
         return modelAndView;
     }
 
-    @RequestMapping(value = "/admin/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public ModelAndView home() {
         ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        AppUser user = userService.findUserByEmail(auth.getName());
-        modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //AppUser user = userService.findUserByEmail(auth.getName());
+        //       modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
-        modelAndView.setViewName("admin/home");
+        modelAndView.setViewName("account/home");
         return modelAndView;
     }
 

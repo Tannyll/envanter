@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="war" name="envanter:war">
     <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="envanter.war">
+    <root id="archive" name="Envanter.war">
       <element id="artifact" artifact-name="envanter:war exploded" />
     </root>
   </artifact>
