@@ -3,7 +3,8 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <title>Hello Spring Boot!</title>
+    <title th:text="#{title.application}"></title>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"

@@ -27,6 +27,7 @@
                         class="glyphicon glyphicon-plus"></span></a></th>
                 <th>#</th>
                 <th>#</th>
+                <th th:text="#{inventory.field.usesUser}"></th>
                 <th th:text="#{inventory.field.model}"></th>
                 <th th:text="#{inventory.field.trademarks}"></th>
                 <th th:text="#{inventory.field.department}"></th>
@@ -45,6 +46,8 @@
                             class="glyphicon glyphicon-edit"></span></a>
                 </td>
                 <td th:text="${itm.inventoryId}"></td>
+                <td th:text="${itm.usesUser}"></td>
+
                 <td th:text="${itm.model}">model</td>
                 <td th:text="${itm.trade!=null}?${itm.trade.trademark}"></td>
                 <td th:text="*{itm.depar!=null}?${itm.depar.departmentName}"></td>

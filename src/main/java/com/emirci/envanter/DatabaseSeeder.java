@@ -82,7 +82,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         }
 
         for (Inventory item : inventoryService.getAll()) {
-            logger.info(item.toString());
+            //logger.info(item.toString());
         }
     }
 
@@ -103,7 +103,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         departmentService.saveOrUpdate(list);
 
         for (Department department : departmentService.getAll()) {
-            logger.info(department.toString());
+            //logger.info(department.toString());
         }
 
     }
@@ -126,7 +126,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         trademarkService.saveOrUpdate(list);
 
         for (Trademark trademark : trademarkService.getAll()) {
-            logger.info(trademark.toString());
+            //logger.info(trademark.toString());
         }
 
     }
@@ -144,7 +144,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         inventoryTypeService.saveOrUpdate(list);
 
         for (InventoryType inventoryType : inventoryTypeService.getAll()) {
-            logger.info(inventoryType.toString());
+            //logger.info(inventoryType.toString());
         }
     }
 
@@ -157,7 +157,7 @@ public class DatabaseSeeder implements CommandLineRunner {
         roleService.saveOrUpdate(list);
 
         for (Role role : roleService.getAll()) {
-            logger.info(role.toString());
+            //logger.info(role.toString());
         }
     }
 

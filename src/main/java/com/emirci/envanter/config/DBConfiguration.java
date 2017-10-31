@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTemplate;
@@ -23,7 +22,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value = {"classpath:application-dev.properties"})
+//@PropertySource(value = {"classpath:application.properties"})
 public class DBConfiguration {
 
     @Autowired
@@ -38,6 +37,7 @@ public class DBConfiguration {
         dataSource.setUrl(env.getRequiredProperty("db.url"));
         dataSource.setUsername(env.getRequiredProperty("db.username"));
         dataSource.setPassword(env.getRequiredProperty("db.password"));
+
         return dataSource;
     }
 
